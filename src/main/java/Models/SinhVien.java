@@ -14,11 +14,21 @@ public class SinhVien {
 
     private String masv;
     private String hoten;
-    private Date ngaysinh;
+    private String ngaysinh;
     private String gioitinh;
     private String email;
     private String sdt;
     private String malop;
+
+    public SinhVien(String masv, String hoten, String ngaysinh, String gioitinh, String email, String sdt, String malop) {
+        this.masv = masv;
+        this.hoten = hoten;
+        this.ngaysinh = ngaysinh;
+        this.gioitinh = gioitinh;
+        this.email = email;
+        this.sdt = sdt;
+        this.malop = malop;
+    }
 
     public String getMasv() {
         return masv;
@@ -36,11 +46,11 @@ public class SinhVien {
         this.hoten = hoten;
     }
 
-    public Date getNgaysinh() {
+    public String getNgaysinh() {
         return ngaysinh;
     }
 
-    public void setNgaysinh(Date ngaysinh) {
+    public void setNgaysinh(String ngaysinh) {
         this.ngaysinh = ngaysinh;
     }
 

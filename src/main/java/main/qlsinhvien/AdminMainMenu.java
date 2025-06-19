@@ -4,6 +4,13 @@
  */
 package main.qlsinhvien;
 
+import Views.frmsinhvien;
+import Views.DangkyView;
+import Views.DanhSachDangKyView;
+import Views.HockyView;
+import Views.LopView;
+import Views.MonView;
+
 /**
  *
  * @author LNV
@@ -29,13 +36,14 @@ public class AdminMainMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        menusinhvien = new javax.swing.JMenuItem();
+        menulophoc = new javax.swing.JMenuItem();
+        menumonhoc = new javax.swing.JMenuItem();
+        menuhocky = new javax.swing.JMenuItem();
+        menudangky = new javax.swing.JMenuItem();
+        menudiem = new javax.swing.JMenuItem();
+        menuhocphi = new javax.swing.JMenuItem();
+        menuketquahoc = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -55,26 +63,54 @@ public class AdminMainMenu extends javax.swing.JFrame {
 
         jMenu1.setText("Quàn lý");
 
-        jMenuItem1.setText("Sinh viên");
-        jMenu1.add(jMenuItem1);
+        menusinhvien.setText("Sinh viên");
+        menusinhvien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menusinhvienActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menusinhvien);
 
-        jMenuItem2.setText("Lớp học");
-        jMenu1.add(jMenuItem2);
+        menulophoc.setText("Lớp học");
+        menulophoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menulophocActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menulophoc);
 
-        jMenuItem3.setText("Môn học");
-        jMenu1.add(jMenuItem3);
+        menumonhoc.setText("Môn học");
+        menumonhoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menumonhocActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menumonhoc);
 
-        jMenuItem4.setText("Đăng ký môn học");
-        jMenu1.add(jMenuItem4);
+        menuhocky.setText("Học kỳ");
+        menuhocky.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuhockyActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuhocky);
 
-        jMenuItem5.setText("Điểm");
-        jMenu1.add(jMenuItem5);
+        menudangky.setText("Đăng ký môn học");
+        menudangky.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menudangkyActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menudangky);
 
-        jMenuItem6.setText("Học phí");
-        jMenu1.add(jMenuItem6);
+        menudiem.setText("Điểm");
+        jMenu1.add(menudiem);
 
-        jMenuItem7.setText("Kết quả học tập");
-        jMenu1.add(jMenuItem7);
+        menuhocphi.setText("Học phí");
+        jMenu1.add(menuhocphi);
+
+        menuketquahoc.setText("Kết quả học tập");
+        jMenu1.add(menuketquahoc);
 
         jMenuBar1.add(jMenu1);
 
@@ -107,6 +143,38 @@ public class AdminMainMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void menusinhvienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menusinhvienActionPerformed
+
+        this.dispose();
+        frmsinhvien view = new frmsinhvien();
+        view.setLocationRelativeTo(null);
+        view.setVisible(true);
+    }//GEN-LAST:event_menusinhvienActionPerformed
+
+    private void menulophocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menulophocActionPerformed
+        LopView view = new LopView();
+        view.setLocationRelativeTo(null);
+        view.setVisible(true);
+    }//GEN-LAST:event_menulophocActionPerformed
+
+    private void menumonhocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menumonhocActionPerformed
+        MonView view = new MonView();
+        view.setLocationRelativeTo(null);
+        view.setVisible(true);
+    }//GEN-LAST:event_menumonhocActionPerformed
+
+    private void menudangkyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menudangkyActionPerformed
+        DangkyView view = new DangkyView();
+        view.setLocationRelativeTo(null);
+        view.setVisible(true);
+    }//GEN-LAST:event_menudangkyActionPerformed
+
+    private void menuhockyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuhockyActionPerformed
+        HockyView view = new HockyView();
+        view.setLocationRelativeTo(null);
+        view.setVisible(true);
+    }//GEN-LAST:event_menuhockyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,7 +213,9 @@ public class AdminMainMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminMainMenu().setVisible(true);
+                AdminMainMenu view = new AdminMainMenu();
+                view.setLocationRelativeTo(null); // canh giữa màn hình
+                view.setVisible(true);
             }
         });
     }
@@ -154,15 +224,16 @@ public class AdminMainMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem menudangky;
+    private javax.swing.JMenuItem menudiem;
+    private javax.swing.JMenuItem menuhocky;
+    private javax.swing.JMenuItem menuhocphi;
+    private javax.swing.JMenuItem menuketquahoc;
+    private javax.swing.JMenuItem menulophoc;
+    private javax.swing.JMenuItem menumonhoc;
+    private javax.swing.JMenuItem menusinhvien;
     // End of variables declaration//GEN-END:variables
 }

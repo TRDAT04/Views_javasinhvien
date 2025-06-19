@@ -467,9 +467,8 @@ public class frmsinhvien extends javax.swing.JFrame {
 
     }
 
-    private boolean isMaLoaiExists(String masv) {
+    private boolean isExists(String masv) {
         try {
-            // Địa chỉ API kiểm tra mã sinh viên tồn tại, ví dụ:
             String urlStr = "http://localhost:8080/api/sinhvien/check-exists?masv=" + URLEncoder.encode(masv, "UTF-8");
             URL url = new URL(urlStr);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -501,23 +500,23 @@ public class frmsinhvien extends javax.swing.JFrame {
         String maSV = txtmasv.getText();
         String hoten = txtname.getText();
         java.util.Date utilDate = dateNS.getDate();
-        java.sql.Date ngaysinh = new java.sql.Date(utilDate.getTime());
         String gioitinh = cbgoitinh.getSelectedItem().toString();
         String tenlop = cbclass.getSelectedItem().toString();
-
         String malop = lopMap.get(tenlop);
         String dienthoai = txtphone.getText();
         String email = txtmail.getText();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String ngaysinh = sdf.format(dateNS.getDate());
 
-        if (isMaLoaiExists(maSV)) {
+        if (isExists(maSV)) {
             JOptionPane.showMessageDialog(this, "Mã sinh viên đã tồn tại. Vui lòng nhập mã khác.");
             return;
         }
-        // Tạo JSON dữ liệu sinh viên
-        String jsonInputString = String.format(
-                "{\"masv\":\"%s\", \"hoten\":\"%s\", \"ngaysinh\":\"%s\", \"gioitinh\":\"%s\", \"sdt\":\"%s\", \"email\":\"%s\", \"malop\":\"%s\"}",
-                maSV, hoten, ngaysinh, gioitinh, dienthoai, email, malop
-        );
+
+        SinhVien sv = new SinhVien(maSV, hoten, ngaysinh, gioitinh, dienthoai, email, malop);
+
+        Gson gson = new Gson();
+        String jsonInputString = gson.toJson(sv);
         try {
             URL url = new URL("http://localhost:8080/api/sinhvien");  // Địa chỉ API Web Service bạn tự cấu hình
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -568,7 +567,6 @@ public class frmsinhvien extends javax.swing.JFrame {
             String gioiTinh = model.getValueAt(selectedRow, 3).toString();
             String dienThoai = model.getValueAt(selectedRow, 4).toString();
             String email = model.getValueAt(selectedRow, 5).toString();
-
             String tenLop = model.getValueAt(selectedRow, 6).toString();
 
             // Đưa dữ liệu vào form
@@ -578,10 +576,8 @@ public class frmsinhvien extends javax.swing.JFrame {
             cbgoitinh.setSelectedItem(gioiTinh);
             txtphone.setText(dienThoai);
             txtmail.setText(email);
-            //  txtdiachi.setText(diaChi);
             cbclass.setSelectedItem(tenLop);
 
-            // Nếu bạn không muốn sửa mã sinh viên thì có thể disable txtmasv:
             txtmasv.setEnabled(false);
         }
     }//GEN-LAST:event_jTable1MouseClicked
@@ -594,7 +590,7 @@ public class frmsinhvien extends javax.swing.JFrame {
             String maSV = txtmasv.getText();
             String hoten = txtname.getText();
             java.util.Date utilDate = dateNS.getDate();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // format chuẩn cho API
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String ngaysinhStr = sdf.format(utilDate);
             String gioitinh = cbgoitinh.getSelectedItem().toString();
             String tenlop = cbclass.getSelectedItem().toString();
@@ -602,23 +598,14 @@ public class frmsinhvien extends javax.swing.JFrame {
             String dienthoai = txtphone.getText();
             String email = txtmail.getText();
 
-            // Tạo JSON object sinh viên (dùng Gson)
-            Map<String, Object> svMap = new HashMap<>();
-            svMap.put("masv", maSV);
-            svMap.put("hoten", hoten);
-            svMap.put("ngaysinh", ngaysinhStr);
-            svMap.put("gioitinh", gioitinh);
-            svMap.put("malop", malop);
-            svMap.put("sdt", dienthoai);
-            svMap.put("email", email);
+            SinhVien sv = new SinhVien(maSV, hoten, ngaysinhStr, gioitinh, email, dienthoai, malop);
 
             Gson gson = new Gson();
-            String jsonInputString = gson.toJson(svMap);
+            String jsonInputString = gson.toJson(sv);
 
-            // URL API cập nhật (ví dụ PUT tại /api/sinhvien/{masv})
             URL url = new URL("http://localhost:8080/api/sinhvien/" + maSV);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("PUT");  // hoặc POST nếu API của bạn dùng POST cho update
+            con.setRequestMethod("PUT");
             con.setRequestProperty("Content-Type", "application/json; utf-8");
             con.setRequestProperty("Accept", "application/json");
             con.setDoOutput(true);
@@ -636,14 +623,8 @@ public class frmsinhvien extends javax.swing.JFrame {
                 txtmasv.setEnabled(true);
                 clear();
             } else {
-                // Đọc phản hồi lỗi
-                BufferedReader br = new BufferedReader(new InputStreamReader(con.getErrorStream(), "utf-8"));
-                StringBuilder response = new StringBuilder();
-                String responseLine;
-                while ((responseLine = br.readLine()) != null) {
-                    response.append(responseLine.trim());
-                }
-                JOptionPane.showMessageDialog(this, "Cập nhật thất bại: " + response.toString());
+
+                JOptionPane.showMessageDialog(this, "Cập nhật thất bại: ");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -653,12 +634,9 @@ public class frmsinhvien extends javax.swing.JFrame {
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void btntimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimkiemActionPerformed
-
         String masv = txtfindmasv.getText().trim();
         String tensv = txtfindtensv.getText().trim();
-
         try {
-            // Dùng đúng endpoint tìm kiếm
             String urlStr = String.format(
                     "http://localhost:8080/api/sinhvien/search?masv=%s&tensv=%s",
                     URLEncoder.encode(masv, StandardCharsets.UTF_8),
@@ -683,7 +661,6 @@ public class frmsinhvien extends javax.swing.JFrame {
             br.close();
             conn.disconnect();
 
-            // Parse JSON
             Gson gson = new Gson();
             SinhVien[] sinhViens = gson.fromJson(sb.toString(), SinhVien[].class);
 
@@ -727,14 +704,14 @@ public class frmsinhvien extends javax.swing.JFrame {
         );
         if (confirm == JOptionPane.YES_OPTION) {
             try {
-                URL url = new URL("http://localhost:8080/api/sinhvien/" + masv); // API xóa theo mã sinh viên
+                URL url = new URL("http://localhost:8080/api/sinhvien/" + masv);
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("DELETE");
 
                 int responseCode = con.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
                     JOptionPane.showMessageDialog(this, "Xóa thành công");
-                    loadtb();  // tải lại dữ liệu từ web service
+                    loadtb();
                 } else {
                     JOptionPane.showMessageDialog(this, "Xóa thất bại, mã lỗi: " + responseCode);
                 }
@@ -784,7 +761,7 @@ public class frmsinhvien extends javax.swing.JFrame {
 
     private void loadtb() {
         try {
-            URL url = new URL("http://localhost:8080/api/sinhvien");  // Địa chỉ Web Service
+            URL url = new URL("http://localhost:8080/api/sinhvien");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("Accept", "application/json");
@@ -804,17 +781,18 @@ public class frmsinhvien extends javax.swing.JFrame {
             Gson gson = new Gson();
             SinhVien[] dsSinhVien = gson.fromJson(response.toString(), SinhVien[].class);
 
-            // Đổ vào bảng
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
             for (SinhVien sv : dsSinhVien) {
                 String ngaySinhFormatted = "";
-                Date ngaysinh = sv.getNgaysinh();
-
-                if (ngaysinh != null) {
-                    ngaySinhFormatted = sdf.format(ngaysinh);
+                try {
+                    Date parsed = new SimpleDateFormat("yyyy-MM-dd").parse(sv.getNgaysinh());
+                    ngaySinhFormatted = sdf.format(parsed);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-                String tenlop = lopMapReverse.get(sv.getMalop()); // Lấy tên lớp từ mã lớp
+
+                String tenlop = lopMapReverse.get(sv.getMalop());
                 model.addRow(new Object[]{
                     sv.getMasv(),
                     sv.getHoten(),
@@ -867,7 +845,9 @@ public class frmsinhvien extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmsinhvien().setVisible(true);
+                frmsinhvien view = new frmsinhvien();
+                view.setLocationRelativeTo(null); // canh giữa màn hình
+                view.setVisible(true);
             }
         });
     }

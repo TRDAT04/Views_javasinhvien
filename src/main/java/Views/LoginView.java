@@ -125,6 +125,8 @@ public class LoginView extends javax.swing.JFrame {
                 LoginView view = new LoginView();
                 new Controllers.LoginController(view);
                 view.setVisible(true);
+                view.setLocationRelativeTo(null);
+
             }
         });
     }

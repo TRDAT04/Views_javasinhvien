@@ -12,6 +12,13 @@ public class Lop {
 
     private String malop;
     private String tenlop;
+    private String khoa;
+
+    public Lop(String malop, String tenlop, String khoa) {
+        this.malop = malop;
+        this.tenlop = tenlop;
+        this.khoa = khoa;
+    }
 
     public String getMalop() {
         return malop;
@@ -28,4 +35,13 @@ public class Lop {
     public void setTenlop(String tenlop) {
         this.tenlop = tenlop;
     }
+
+    public String getKhoa() {
+        return khoa;
+    }
+
+    public void setKhoa(String khoa) {
+        this.khoa = khoa;
+    }
+
 }
