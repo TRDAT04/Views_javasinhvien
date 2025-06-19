@@ -10,79 +10,30 @@ package Models;
  */
 public class Diem {
 
-    private String masv;
-    private String mamon;
-    private String mahk;
-    private double diem;
-
-    private SinhVien sinhVien;
-    private Monhoc monHoc;
-    private HocKy hocKy;
+    private DiemId id;
+    private Double diem;
 
     public Diem() {
     }
 
-    public Diem(String masv, String mamon, String mahk, double diem) {
-        this.masv = masv;
-        this.mamon = mamon;
-        this.mahk = mahk;
+    public Diem(DiemId id, Double diem) {
+        this.id = id;
         this.diem = diem;
     }
 
-    // Getters & setters
-    public String getMasv() {
-        return masv;
+    public DiemId getId() {
+        return id;
     }
 
-    public void setMasv(String masv) {
-        this.masv = masv;
+    public void setId(DiemId id) {
+        this.id = id;
     }
 
-    public String getMamon() {
-        return mamon;
-    }
-
-    public void setMamon(String mamon) {
-        this.mamon = mamon;
-    }
-
-    public String getMahk() {
-        return mahk;
-    }
-
-    public void setMahk(String mahk) {
-        this.mahk = mahk;
-    }
-
-    public double getDiem() {
+    public Double getDiem() {
         return diem;
     }
 
-    public void setDiem(double diem) {
+    public void setDiem(Double diem) {
         this.diem = diem;
-    }
-
-    public SinhVien getSinhVien() {
-        return sinhVien;
-    }
-
-    public void setSinhVien(SinhVien sinhVien) {
-        this.sinhVien = sinhVien;
-    }
-
-    public Monhoc getMonHoc() {
-        return monHoc;
-    }
-
-    public void setMonHoc(Monhoc monHoc) {
-        this.monHoc = monHoc;
-    }
-
-    public HocKy getHocKy() {
-        return hocKy;
-    }
-
-    public void setHocKy(HocKy hocKy) {
-        this.hocKy = hocKy;
     }
 }

@@ -5,6 +5,7 @@
 package Views;
 
 import Models.Diem;
+import Models.DiemId;
 import Models.HocKy;
 import Models.Monhoc;
 import Models.SinhVien;
@@ -90,8 +91,6 @@ public class NhapDiemView extends javax.swing.JFrame {
         jLabel3.setText("Chọn học kỳ:");
 
         jLabel4.setText("Chọn môn học:");
-
-        cbxmonhoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Chọn môn học---" }));
 
         jLabel5.setText("Nhập điểm:");
 
@@ -268,11 +267,14 @@ public class NhapDiemView extends javax.swing.JFrame {
             double diem = Double.parseDouble(diemStr);
 
             // Tạo object Diem
-            Diem diemObj = new Diem(masv, mamon, mahk, diem); // hoặc dùng setter nếu không có constructor
+            DiemId id = new DiemId(masv, mamon, Integer.parseInt(mahk));  // tạo composite key
+            Diem diemObj = new Diem(id, diem);
 
             // Gửi request POST
             Gson gson = new Gson();
             String json = gson.toJson(diemObj);
+            System.out.println("JSON gửi lên server:");
+            System.out.println(json);
 
             URL url = new URL("http://localhost:8080/api/diem");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -460,7 +462,7 @@ public class NhapDiemView extends javax.swing.JFrame {
     private javax.swing.JButton btnsua;
     private javax.swing.JButton btnxoa;
     private javax.swing.JComboBox<String> cbxhocky;
-    private javax.swing.JComboBox<String> cbxmonhoc;
+    private javax.swing.JComboBox<Monhoc> cbxmonhoc;
     private javax.swing.JComboBox<String> cbxsinhvien;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
