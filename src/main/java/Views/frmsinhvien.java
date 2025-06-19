@@ -503,8 +503,8 @@ public class frmsinhvien extends javax.swing.JFrame {
         String gioitinh = cbgoitinh.getSelectedItem().toString();
         String tenlop = cbclass.getSelectedItem().toString();
         String malop = lopMap.get(tenlop);
-        String dienthoai = txtphone.getText();
-        String email = txtmail.getText();
+        String dienthoai = txtmail.getText();
+        String email = txtphone.getText();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String ngaysinh = sdf.format(dateNS.getDate());
 

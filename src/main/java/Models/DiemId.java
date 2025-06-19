@@ -12,12 +12,12 @@ public class DiemId {
 
     private String masv;
     private String mamon;
-    private int mahk;
+    private String mahk;
 
     public DiemId() {
     }
 
-    public DiemId(String masv, String mamon, int mahk) {
+    public DiemId(String masv, String mamon, String mahk) {
         this.masv = masv;
         this.mamon = mamon;
         this.mahk = mahk;
@@ -39,11 +39,11 @@ public class DiemId {
         this.mamon = mamon;
     }
 
-    public int getMahk() {
+    public String getMahk() {
         return mahk;
     }
 
-    public void setMahk(int mahk) {
+    public void setMahk(String mahk) {
         this.mahk = mahk;
     }
 }

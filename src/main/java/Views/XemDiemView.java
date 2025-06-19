@@ -8,7 +8,6 @@ import DTO.DiemRequestDTO;
 import Models.Diem;
 import Models.DiemId;
 import DTO.DiemResponseDTO;
-import DTO.SinhVienDTO;
 import Models.HocKy;
 import Models.Monhoc;
 import Models.SinhVien;
@@ -33,7 +32,7 @@ import javax.swing.JComboBox;
  *
  * @author LNV
  */
-public class NhapDiemView extends javax.swing.JFrame {
+public class XemDiemView extends javax.swing.JFrame {
 
     private java.util.HashMap<String, String> monMap = new java.util.HashMap<>(); // key = tên sinhvien, value = mã sv
     private java.util.HashMap<String, String> monMapReverse = new java.util.HashMap<>();  // key = mã sv, value = tên sv
@@ -44,12 +43,12 @@ public class NhapDiemView extends javax.swing.JFrame {
     /**
      * Creates new form DiemView
      */
-    public NhapDiemView() {
+    public XemDiemView() {
         initComponents();
         loadhocky();
         loadmonhoc();
-        cbxmonhoc.addActionListener(e -> loadSinhVienChuaCoDiem());
-        cbxhocky.addActionListener(e -> loadSinhVienChuaCoDiem());
+        cbxmonhoc.addActionListener(e -> loadtb());
+        cbxhocky.addActionListener(e -> loadtb());
 
     }
 
@@ -77,7 +76,7 @@ public class NhapDiemView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("NHẬP ĐIỂM CHO SINH VIÊN");
+        jLabel1.setText("CẬP NHẬT ĐIỂM CHO SINH VIÊN");
 
         cbxhocky.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Chọn học kỳ---" }));
 
@@ -112,7 +111,7 @@ public class NhapDiemView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(cbxmonhoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(5, 5, 5))
         );
@@ -143,11 +142,11 @@ public class NhapDiemView extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnsavediem.setText("Lưu điểm");
+        btnsavediem.setText("Cập nhật");
         btnsavediem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnsavediemActionPerformed(evt);
@@ -167,11 +166,11 @@ public class NhapDiemView extends javax.swing.JFrame {
                         .addGap(111, 111, 111)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(btnsavediem))
+                        .addGap(100, 100, 100)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(jLabel1)))
+                        .addGap(53, 53, 53)
+                        .addComponent(btnsavediem)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -181,7 +180,7 @@ public class NhapDiemView extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnsavediem)
@@ -195,72 +194,109 @@ public class NhapDiemView extends javax.swing.JFrame {
         if (jTable1.isEditing()) {
             jTable1.getCellEditor().stopCellEditing();
         }
-        int monIndex = cbxmonhoc.getSelectedIndex();
-        int hkIndex = cbxhocky.getSelectedIndex();
-        if (monIndex <= 0 || hkIndex <= 0) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn môn học và học kỳ.");
-            return;
-        }
-
+        int rowCount = jTable1.getRowCount();
         String mamon = monMap.get(cbxmonhoc.getSelectedItem().toString());
         int mahk = Integer.parseInt(hkMap.get(cbxhocky.getSelectedItem().toString()));
 
         boolean hasError = false;
-        int countSaved = 0;
-        Gson gson = new Gson();
 
-        for (int i = 0; i < jTable1.getRowCount(); i++) {
+        for (int i = 0; i < rowCount; i++) {
             String masv = jTable1.getValueAt(i, 0).toString();
-            Object diemObj = jTable1.getValueAt(i, 2);
+            Object diemObj = jTable1.getValueAt(i, 3);
 
             if (diemObj == null || diemObj.toString().trim().isEmpty()) {
                 continue;
             }
 
+            double diem;
             try {
-                double diem = Double.parseDouble(diemObj.toString());
-                DiemRequestDTO dto = new DiemRequestDTO(masv, mamon, mahk, diem);
-
-                HttpURLConnection conn = (HttpURLConnection) new URL("http://localhost:8080/api/diem").openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setDoOutput(true);
-
-                try (OutputStream os = conn.getOutputStream()) {
-                    os.write(gson.toJson(dto).getBytes("UTF-8"));
-                }
-
-                if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    countSaved++;
-                } else {
-                    hasError = true;
-                    String error = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "UTF-8"))
-                            .lines().reduce("", (a, b) -> a + b);
-                    JOptionPane.showMessageDialog(this, "Lỗi lưu SV " + masv + ": " + error);
-                }
-
-                conn.disconnect();
+                diem = Double.parseDouble(diemObj.toString());
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Điểm không hợp lệ ở dòng " + (i + 1));
                 hasError = true;
+                continue;
+            }
+
+            try {
+                URL url = new URL("http://localhost:8080/api/diem");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("PUT");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+
+                Gson gson = new Gson();
+                DiemRequestDTO dto = new DiemRequestDTO(masv, mamon, mahk, diem);
+                String jsonPayload = gson.toJson(dto);
+
+                OutputStream os = conn.getOutputStream();
+                os.write(jsonPayload.getBytes("UTF-8"));
+                os.flush();
+                os.close();
+
+                if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "UTF-8"));
+                    StringBuilder errorResponse = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        errorResponse.append(line);
+                    }
+                    JOptionPane.showMessageDialog(this, "Lỗi cập nhật điểm SV " + masv + ": " + errorResponse);
+                    hasError = true;
+                }
+
+                conn.disconnect();
+
             } catch (Exception e) {
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Lỗi lưu điểm SV " + masv);
+                JOptionPane.showMessageDialog(this, "Lỗi cập nhật điểm sinh viên " + masv);
                 hasError = true;
             }
         }
 
-        if (!hasError && countSaved > 0) {
-
-            JOptionPane.showMessageDialog(this, "Đã lưu " + countSaved + " điểm thành công!");
-            loadSinhVienChuaCoDiem();
+        if (!hasError) {
+            JOptionPane.showMessageDialog(this, "Cập nhật điểm thành công!");
+            loadtb();
         }
-
     }//GEN-LAST:event_btnsavediemActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(XemDiemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(XemDiemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(XemDiemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(XemDiemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new XemDiemView().setVisible(true);
+            }
+        });
+    }
+
     private void loadhocky() {
         try {
             URL url = new URL("http://localhost:8080/api/hocky");
@@ -324,21 +360,21 @@ public class NhapDiemView extends javax.swing.JFrame {
         }
     }
 
-    private void loadSinhVienChuaCoDiem() {
+    public void loadtb() {
         int monIndex = cbxmonhoc.getSelectedIndex();
         int hkIndex = cbxhocky.getSelectedIndex();
 
+        // Nếu người dùng chưa chọn môn học hoặc học kỳ (còn đang ở mục đầu tiên)
         if (monIndex <= 0 || hkIndex <= 0) {
             System.out.println("Vui lòng chọn môn học và học kỳ hợp lệ.");
             return;
         }
-
         String mamon = monMap.get(cbxmonhoc.getSelectedItem().toString());
         String mahk = hkMap.get(cbxhocky.getSelectedItem().toString());
 
         try {
-            String apiUrl = "http://localhost:8080/api/diem/chuacodiem?mamon="
-                    + URLEncoder.encode(mamon, "UTF-8")
+
+            String apiUrl = "http://localhost:8080/api/diem/danhsach?mamon=" + URLEncoder.encode(mamon, "UTF-8")
                     + "&mahk=" + URLEncoder.encode(mahk, "UTF-8");
 
             URL url = new URL(apiUrl);
@@ -347,78 +383,45 @@ public class NhapDiemView extends javax.swing.JFrame {
             conn.setRequestProperty("Accept", "application/json");
 
             if (conn.getResponseCode() != 200) {
-                throw new RuntimeException("Lỗi HTTP: " + conn.getResponseCode());
+                throw new RuntimeException("HTTP error: " + conn.getResponseCode());
             }
 
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-            StringBuilder response = new StringBuilder();
+            StringBuilder json = new StringBuilder();
             String line;
             while ((line = br.readLine()) != null) {
-                response.append(line);
+                json.append(line);
             }
             conn.disconnect();
 
             Gson gson = new Gson();
-            SinhVienDTO[] danhSach = gson.fromJson(response.toString(), SinhVienDTO[].class);
+            DiemResponseDTO[] diemList = gson.fromJson(json.toString(), DiemResponseDTO[].class);
 
-            // Hiển thị dữ liệu lên JTable
-            DefaultTableModel model = new DefaultTableModel(new Object[]{"Mã SV", "Họ tên", "Điểm"}, 0) {
+            // Đổ vào JTable
+            DefaultTableModel model = new DefaultTableModel(
+                    new String[]{"Mã SV", "Họ tên", "Môn học", "Điểm"}, 0
+            ) {
                 @Override
                 public boolean isCellEditable(int row, int column) {
-                    // Chỉ cho phép chỉnh sửa cột "Điểm"
-                    return column == 2;
+                    // Chỉ cho phép chỉnh sửa cột "Điểm" (index 3)
+                    return column == 3;
                 }
             };
+            model.setRowCount(0);
+            model.setColumnIdentifiers(new String[]{"Mã SV", "Họ tên", "Môn học", "Điểm"});
 
-            for (SinhVienDTO sv : danhSach) {
-                model.addRow(new Object[]{sv.getMasv(), sv.getHoten()});
+            for (DiemResponseDTO d : diemList) {
+                model.addRow(new Object[]{
+                    d.getMasv(), d.getHoten(), d.getTenmon(), d.getDiem()
+                });
             }
 
             jTable1.setModel(model);
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Lỗi khi tải danh sách sinh viên chưa có điểm!");
+            JOptionPane.showMessageDialog(null, "Lỗi khi tải dữ liệu điểm!");
         }
-    }
-
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NhapDiemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NhapDiemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NhapDiemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NhapDiemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NhapDiemView().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

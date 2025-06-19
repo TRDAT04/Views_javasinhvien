@@ -5,8 +5,10 @@ Views\MonView$7.class
 service\AuthService.class
 Views\frmsinhvien.class
 main\qlsinhvien\AdminMainMenu$2.class
+Views\XemDiemView.class
 Models\HocKy.class
 Views\frmsinhvien$4.class
+Views\XemDiemView$1.class
 Views\LopView.class
 Models\Diem.class
 main\qlsinhvien\AdminMainMenu$6.class
@@ -17,10 +19,12 @@ Views\LopView$8.class
 Models\Monhoc.class
 Models\TaiKhoan.class
 Views\NhapDiemView$3.class
+DTO\DiemRequestDTO.class
 Models\Lop.class
 Views\DanhSachDangKyView.class
 Views\MonView$6.class
 Views\frmsinhvien$5.class
+Views\XemDiemView$2.class
 main\qlsinhvien\AdminMainMenu$3.class
 Views\HockyView.class
 Views\LopView$3.class
@@ -28,6 +32,7 @@ Views\DanhSachDangKyView$3.class
 Views\DangkyView.class
 Views\HockyView$1.class
 Views\MonView$8.class
+DTO\SinhVienDTO.class
 Models\DiemId.class
 Views\frmsinhvien$8.class
 Views\frmsinhvien$1.class
@@ -39,6 +44,7 @@ Views\HockyView$4.class
 Views\HockyView$2.class
 Views\MonView$5.class
 Views\DangkyView$2.class
+DTO\DiemResponseDTO.class
 Views\frmsinhvien$9.class
 Views\LopView$6.class
 Controllers\LoginController.class
@@ -72,3 +78,4 @@ main\qlsinhvien\ExcelExporter.class
 Views\frmsinhvien$3.class
 Views\NhapDiemView$2.class
 Views\frmsinhvien$6.class
+Views\XemDiemView$3.class
