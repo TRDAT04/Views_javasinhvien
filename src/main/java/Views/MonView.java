@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Views;
 
@@ -24,13 +24,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author LNV
  */
-public class MonView extends javax.swing.JFrame {
+public class MonView extends javax.swing.JPanel {
 
     /**
-     * Creates new form LopView
+     * Creates new form MonView
      */
     public MonView() {
         initComponents();
+
         loadtb();
         btncapnhat.setEnabled(false);
         btnluu.setEnabled(false);
@@ -46,13 +47,6 @@ public class MonView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        txtfindmalop = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtfindtenlop = new javax.swing.JTextField();
-        btntimkiem = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -70,53 +64,13 @@ public class MonView extends javax.swing.JFrame {
         btnxuatexxcel = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         txtgiatin = new javax.swing.JTextField();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 153, 255));
-        jLabel1.setText("Cập nhật thông tin môn học");
-
-        jLabel5.setText("Mã môn:");
-
-        jLabel6.setText("Tên môn:");
-
-        btntimkiem.setText("Tìm kiếm");
-        btntimkiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btntimkiemActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtfindmalop, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtfindtenlop, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btntimkiem)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtfindmalop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtfindtenlop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btntimkiem))
-                .addGap(10, 10, 10))
-        );
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        txtfindmalop = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtfindtenlop = new javax.swing.JTextField();
+        btntimkiem = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -242,7 +196,7 @@ public class MonView extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtmamon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
@@ -264,25 +218,69 @@ public class MonView extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 102, 255));
+        jLabel1.setText("CẬP NHẬT THÔNG TIN MÔN HỌC");
+
+        jLabel5.setText("Mã môn:");
+
+        jLabel6.setText("Tên môn:");
+
+        btntimkiem.setText("Tìm kiếm");
+        btntimkiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntimkiemActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtfindmalop, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtfindtenlop, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btntimkiem)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtfindmalop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtfindtenlop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btntimkiem))
+                .addGap(10, 10, 10))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(124, 124, 124))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,24 +292,35 @@ public class MonView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        btnluu.setEnabled(false);
+        btncapnhat.setEnabled(true);
+        btnxoa.setEnabled(true);
+        int selectedRow = jTable1.getSelectedRow();
+        txtmamon.setEnabled(false);
+        if (selectedRow >= 0) {
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            String malop = jTable1.getValueAt(selectedRow, 0).toString();
+            String tenlop = jTable1.getValueAt(selectedRow, 1).toString();
+            String khoa = jTable1.getValueAt(selectedRow, 2).toString();
+            String giatin = jTable1.getValueAt(selectedRow, 3).toString();
+            // Hiển thị lên các ô nhập liệu
+            txtmamon.setText(malop);
+            txttenmon.setText(tenlop);
+            txtsotinchi.setText(khoa);
+            txtgiatin.setText(giatin);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     private void txtsotinchiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsotinchiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtsotinchiActionPerformed
 
-    private void clear() {
-        txtmamon.setText("");
-        txttenmon.setText("");
-        txtsotinchi.setText("");
-        txtgiatin.setText("");
-
-    }
     private void btnluuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnluuActionPerformed
         String mamon = txtmamon.getText();
         String tenmon = txttenmon.getText();
@@ -321,10 +330,10 @@ public class MonView extends javax.swing.JFrame {
         Monhoc mon = new Monhoc(mamon, tenmon, sotinchi, giatin);
         Gson gson = new Gson();
         String jsonInputString = gson.toJson(mon);
-//        if (isExists(mamon)) {
-//            JOptionPane.showMessageDialog(this, "Mã lớp đã tồn tại. Vui lòng nhập mã khác.");
-//            return;
-//        }
+        //        if (isExists(mamon)) {
+        //            JOptionPane.showMessageDialog(this, "Mã lớp đã tồn tại. Vui lòng nhập mã khác.");
+        //            return;
+        //        }
         try {
             URL url = new URL("http://localhost:8080/api/mon");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -350,25 +359,19 @@ public class MonView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnluuActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        btnluu.setEnabled(false);
-        btncapnhat.setEnabled(true);
-        btnxoa.setEnabled(true);
-        int selectedRow = jTable1.getSelectedRow();
-        txtmamon.setEnabled(false);
-        if (selectedRow >= 0) {
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            String malop = jTable1.getValueAt(selectedRow, 0).toString();
-            String tenlop = jTable1.getValueAt(selectedRow, 1).toString();
-            String khoa = jTable1.getValueAt(selectedRow, 2).toString();
-            String giatin = jTable1.getValueAt(selectedRow, 3).toString();
-            // Hiển thị lên các ô nhập liệu
-            txtmamon.setText(malop);
-            txttenmon.setText(tenlop);
-            txtsotinchi.setText(khoa);
-            txtgiatin.setText(giatin);
-        }
-    }//GEN-LAST:event_jTable1MouseClicked
+    private void clear() {
+        txtmamon.setText("");
+        txttenmon.setText("");
+        txtsotinchi.setText("");
+        txtgiatin.setText("");
+    }
+    private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
+        clear();
+        txtmamon.setEnabled(true);
+        btnluu.setEnabled(true);
+        btncapnhat.setEnabled(false);
+        btnxoa.setEnabled(false);
+    }//GEN-LAST:event_btnthemActionPerformed
 
     private void btncapnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncapnhatActionPerformed
         String mamon = txtmamon.getText();
@@ -403,7 +406,6 @@ public class MonView extends javax.swing.JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Lỗi kết nối: " + e.getMessage());
         }
-
     }//GEN-LAST:event_btncapnhatActionPerformed
 
     private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
@@ -439,6 +441,10 @@ public class MonView extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnxoaActionPerformed
+
+    private void btnxuatexxcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxuatexxcelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnxuatexxcelActionPerformed
 
     private void btntimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimkiemActionPerformed
         String mamon = txtfindmalop.getText().trim();
@@ -485,63 +491,6 @@ public class MonView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Lỗi khi tìm kiếm sinh viên: " + e.getMessage());
         }
     }//GEN-LAST:event_btntimkiemActionPerformed
-
-    private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
-        clear();
-        txtmamon.setEnabled(true);
-        btnluu.setEnabled(true);
-        btncapnhat.setEnabled(false);
-        btnxoa.setEnabled(false);
-    }//GEN-LAST:event_btnthemActionPerformed
-
-    private void btnxuatexxcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxuatexxcelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnxuatexxcelActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MonView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MonView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MonView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MonView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-
-                MonView view = new MonView();
-                view.setLocationRelativeTo(null); // canh giữa màn hình
-                view.setVisible(true);
-            }
-        });
-    }
 
     private void loadtb() {
         try {
