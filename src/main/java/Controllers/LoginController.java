@@ -4,9 +4,9 @@
  */
 package Controllers;
 
-import Views.LoginView;
 import service.AuthService;
 import Models.TaiKhoan;
+import Views.Login;
 import main.qlsinhvien.AdminMainMenu;
 import main.qlsinhvien.StudentMainMenu;
 
@@ -16,14 +16,13 @@ import main.qlsinhvien.StudentMainMenu;
  */
 public class LoginController {
 
-    private final LoginView view;
+    private final Login view;
     private final AuthService authService;
 
-    public LoginController(LoginView view) {
+    public LoginController(Login view) {
         this.view = view;
         this.authService = new AuthService();
         this.view.addLoginListener(e -> handleLogin());
-
     }
 
     public void handleLogin() {
@@ -42,9 +41,14 @@ public class LoginController {
                 view.dispose();
 
                 if ("admin".equalsIgnoreCase(acc.getRole())) {
-                    new AdminMainMenu().setVisible(true);
+                    AdminMainMenu adminMenu = new AdminMainMenu();
+                    adminMenu.setLocationRelativeTo(null);
+                    adminMenu.setVisible(true);
+
                 } else if ("sinhvien".equalsIgnoreCase(acc.getRole())) {
-                    new StudentMainMenu().setVisible(true);
+                    StudentMainMenu studentMenu = new StudentMainMenu();
+                    studentMenu.setLocationRelativeTo(null);
+                    studentMenu.setVisible(true);
                 }
             } else {
                 view.showMessage("Sai tài khoản hoặc mật khẩu!");

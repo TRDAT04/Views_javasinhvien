@@ -4,15 +4,18 @@
  */
 package main.qlsinhvien;
 
+import Controllers.LoginController;
 import Models.Diem;
-import filefrm.frmsinhvien;
 import Views.DangKyView;
 
 import Views.HocPhiView;
 import Views.HocKyView;
+import Views.Home;
+import Views.Login;
 import Views.LopView;
 import Views.MonView;
 import Views.NhapDiemView;
+import Views.TaikhoanView;
 import Views.XemDiemView;
 import Views.sinhvien;
 import java.awt.BorderLayout;
@@ -22,7 +25,10 @@ import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -31,19 +37,26 @@ import javax.swing.JPanel;
 public class AdminMainMenu extends javax.swing.JFrame {
 
     /**
-     * Creates new form frmquanlisv
+     * Creates new form NewJFrame
      */
     public AdminMainMenu() {
-        initComponents();  // GUI đã được NetBeans dựng
-
+        initComponents();
+        this.setResizable(false);
+        Home view = new Home();
+        setContentPanel(view);
     }
 
     public void setContentPanel(JPanel panel) {
         contentpanel.removeAll();
-        contentpanel.setLayout(new GridBagLayout());
-        panel.setPreferredSize(new Dimension(600, 550));
+        contentpanel.setLayout(new BorderLayout());
 
-        contentpanel.add(panel, new GridBagConstraints());
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(8, Integer.MAX_VALUE));
+        scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(Integer.MAX_VALUE, 8));
+        scrollPane.setBorder(null);
+        contentpanel.add(scrollPane, BorderLayout.CENTER);
         contentpanel.revalidate();
         contentpanel.repaint();
     }
@@ -57,8 +70,12 @@ public class AdminMainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btnhome = new javax.swing.JButton();
+        btnlogout = new javax.swing.JButton();
+        FooterPanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         NavigationPanel = new javax.swing.JPanel();
         btnsv = new javax.swing.JButton();
         btnmon = new javax.swing.JButton();
@@ -67,23 +84,108 @@ public class AdminMainMenu extends javax.swing.JFrame {
         btndkmon = new javax.swing.JButton();
         btnnhapdiem = new javax.swing.JButton();
         btnxemdiem = new javax.swing.JButton();
-        btnhocphi = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        btnhocphi = new javax.swing.JButton();
+        btntaikhoan = new javax.swing.JButton();
         contentpanel = new javax.swing.JPanel();
-        FooterPanel = new javax.swing.JPanel();
-        jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        header.setBackground(new java.awt.Color(0, 123, 255));
+        header.setPreferredSize(new java.awt.Dimension(745, 57));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 51, 204));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("HỆ THỐNG QUẢN LÝ SINH VIÊN");
 
-        NavigationPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        NavigationPanel.setLayout(new java.awt.GridLayout(10, 1, 5, 5));
+        btnhome.setBackground(new java.awt.Color(0, 123, 255));
+        btnhome.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnhome.setForeground(new java.awt.Color(255, 255, 255));
+        btnhome.setText("Trang chủ");
+        btnhome.setBorder(null);
+        btnhome.setContentAreaFilled(false);
+        btnhome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhomeActionPerformed(evt);
+            }
+        });
 
+        btnlogout.setBackground(new java.awt.Color(0, 123, 255));
+        btnlogout.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnlogout.setForeground(new java.awt.Color(255, 255, 255));
+        btnlogout.setText("Đăng xuất");
+        btnlogout.setBorder(null);
+        btnlogout.setContentAreaFilled(false);
+        btnlogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlogoutActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
+        header.setLayout(headerLayout);
+        headerLayout.setHorizontalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 285, Short.MAX_VALUE)
+                .addComponent(btnhome)
+                .addGap(18, 18, 18)
+                .addComponent(btnlogout)
+                .addGap(16, 16, 16))
+        );
+        headerLayout.setVerticalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnhome)
+                    .addComponent(btnlogout)
+                    .addComponent(jLabel1))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(header, java.awt.BorderLayout.PAGE_START);
+
+        FooterPanel.setBackground(new java.awt.Color(0, 123, 255));
+        FooterPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        FooterPanel.setPreferredSize(new java.awt.Dimension(745, 40));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("© 2024 Student Management System. All rights reserved.");
+
+        javax.swing.GroupLayout FooterPanelLayout = new javax.swing.GroupLayout(FooterPanel);
+        FooterPanel.setLayout(FooterPanelLayout);
+        FooterPanelLayout.setHorizontalGroup(
+            FooterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FooterPanelLayout.createSequentialGroup()
+                .addContainerGap(207, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(184, 184, 184))
+        );
+        FooterPanelLayout.setVerticalGroup(
+            FooterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FooterPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(FooterPanel, java.awt.BorderLayout.PAGE_END);
+
+        NavigationPanel.setBackground(new java.awt.Color(36, 61, 85));
+        NavigationPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createEmptyBorder(10, 10, 20, 10)));
+        NavigationPanel.setPreferredSize(new java.awt.Dimension(130, 271));
+        NavigationPanel.setLayout(new java.awt.GridLayout(12, 1, 5, 5));
+
+        btnsv.setBackground(new java.awt.Color(52, 58, 64));
+        btnsv.setForeground(new java.awt.Color(255, 255, 255));
         btnsv.setText("Quản lý SV");
+        btnsv.setBorder(null);
+        btnsv.setBorderPainted(false);
+        btnsv.setContentAreaFilled(false);
         btnsv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnsvActionPerformed(evt);
@@ -91,7 +193,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
         });
         NavigationPanel.add(btnsv);
 
+        btnmon.setBackground(new java.awt.Color(52, 58, 64));
+        btnmon.setForeground(new java.awt.Color(255, 255, 255));
         btnmon.setText("Quản lý môn");
+        btnmon.setBorder(null);
+        btnmon.setContentAreaFilled(false);
         btnmon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnmonActionPerformed(evt);
@@ -99,7 +205,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
         });
         NavigationPanel.add(btnmon);
 
+        btnlop.setBackground(new java.awt.Color(52, 58, 64));
+        btnlop.setForeground(new java.awt.Color(255, 255, 255));
         btnlop.setText("Quản lý lớp");
+        btnlop.setBorder(null);
+        btnlop.setContentAreaFilled(false);
         btnlop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnlopActionPerformed(evt);
@@ -107,7 +217,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
         });
         NavigationPanel.add(btnlop);
 
+        btnhocky.setBackground(new java.awt.Color(52, 58, 64));
+        btnhocky.setForeground(new java.awt.Color(255, 255, 255));
         btnhocky.setText("Học kỳ");
+        btnhocky.setBorder(null);
+        btnhocky.setContentAreaFilled(false);
         btnhocky.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnhockyActionPerformed(evt);
@@ -115,7 +229,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
         });
         NavigationPanel.add(btnhocky);
 
+        btndkmon.setBackground(new java.awt.Color(52, 58, 64));
+        btndkmon.setForeground(new java.awt.Color(255, 255, 255));
         btndkmon.setText("Đăng kí môn");
+        btndkmon.setBorder(null);
+        btndkmon.setContentAreaFilled(false);
         btndkmon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btndkmonActionPerformed(evt);
@@ -123,7 +241,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
         });
         NavigationPanel.add(btndkmon);
 
+        btnnhapdiem.setBackground(new java.awt.Color(52, 58, 64));
+        btnnhapdiem.setForeground(new java.awt.Color(255, 255, 255));
         btnnhapdiem.setText("Nhập điểm");
+        btnnhapdiem.setBorder(null);
+        btnnhapdiem.setContentAreaFilled(false);
         btnnhapdiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnnhapdiemActionPerformed(evt);
@@ -131,7 +253,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
         });
         NavigationPanel.add(btnnhapdiem);
 
+        btnxemdiem.setBackground(new java.awt.Color(52, 58, 64));
+        btnxemdiem.setForeground(new java.awt.Color(255, 255, 255));
         btnxemdiem.setText("Xem điểm");
+        btnxemdiem.setBorder(null);
+        btnxemdiem.setContentAreaFilled(false);
         btnxemdiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnxemdiemActionPerformed(evt);
@@ -139,7 +265,18 @@ public class AdminMainMenu extends javax.swing.JFrame {
         });
         NavigationPanel.add(btnxemdiem);
 
+        jButton10.setBackground(new java.awt.Color(52, 58, 64));
+        jButton10.setForeground(new java.awt.Color(255, 255, 255));
+        jButton10.setText("Kết quả học");
+        jButton10.setBorder(null);
+        jButton10.setContentAreaFilled(false);
+        NavigationPanel.add(jButton10);
+
+        btnhocphi.setBackground(new java.awt.Color(52, 58, 64));
+        btnhocphi.setForeground(new java.awt.Color(255, 255, 255));
         btnhocphi.setText("Học phí");
+        btnhocphi.setBorder(null);
+        btnhocphi.setContentAreaFilled(false);
         btnhocphi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnhocphiActionPerformed(evt);
@@ -147,100 +284,42 @@ public class AdminMainMenu extends javax.swing.JFrame {
         });
         NavigationPanel.add(btnhocphi);
 
-        jButton9.setText("jButton9");
-        NavigationPanel.add(jButton9);
+        btntaikhoan.setBackground(new java.awt.Color(52, 58, 64));
+        btntaikhoan.setForeground(new java.awt.Color(255, 255, 255));
+        btntaikhoan.setText("Tài khoản");
+        btntaikhoan.setBorder(null);
+        btntaikhoan.setContentAreaFilled(false);
+        btntaikhoan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntaikhoanActionPerformed(evt);
+            }
+        });
+        NavigationPanel.add(btntaikhoan);
 
-        jButton10.setText("jButton10");
-        NavigationPanel.add(jButton10);
+        getContentPane().add(NavigationPanel, java.awt.BorderLayout.LINE_START);
 
-        contentpanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        contentpanel.setBackground(new java.awt.Color(255, 255, 255));
+        contentpanel.setPreferredSize(new java.awt.Dimension(615, 520));
 
         javax.swing.GroupLayout contentpanelLayout = new javax.swing.GroupLayout(contentpanel);
         contentpanel.setLayout(contentpanelLayout);
         contentpanelLayout.setHorizontalGroup(
             contentpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 612, Short.MAX_VALUE)
+            .addGap(0, 611, Short.MAX_VALUE)
         );
         contentpanelLayout.setVerticalGroup(
             contentpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGap(0, 499, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(contentpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(229, 229, 229)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(contentpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        FooterPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        javax.swing.GroupLayout FooterPanelLayout = new javax.swing.GroupLayout(FooterPanel);
-        FooterPanel.setLayout(FooterPanelLayout);
-        FooterPanelLayout.setHorizontalGroup(
-            FooterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 744, Short.MAX_VALUE)
-        );
-        FooterPanelLayout.setVerticalGroup(
-            FooterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 58, Short.MAX_VALUE)
-        );
-
-        setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FooterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(FooterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        getContentPane().add(contentpanel, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btndkmonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndkmonActionPerformed
-        DangKyView panel = new DangKyView(this); // khởi tạo panel mới
-        setContentPanel(panel);
-    }//GEN-LAST:event_btndkmonActionPerformed
-
     private void btnsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsvActionPerformed
         sinhvien panel = new sinhvien(); // khởi tạo panel mới
         setContentPanel(panel);
-
     }//GEN-LAST:event_btnsvActionPerformed
 
     private void btnmonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmonActionPerformed
@@ -258,10 +337,14 @@ public class AdminMainMenu extends javax.swing.JFrame {
         setContentPanel(view);
     }//GEN-LAST:event_btnhockyActionPerformed
 
+    private void btndkmonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndkmonActionPerformed
+        DangKyView panel = new DangKyView(this); // khởi tạo panel mới
+        setContentPanel(panel);
+    }//GEN-LAST:event_btndkmonActionPerformed
+
     private void btnnhapdiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnhapdiemActionPerformed
         NhapDiemView view = new NhapDiemView();
         setContentPanel(view);
-
     }//GEN-LAST:event_btnnhapdiemActionPerformed
 
     private void btnxemdiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxemdiemActionPerformed
@@ -273,6 +356,37 @@ public class AdminMainMenu extends javax.swing.JFrame {
         HocPhiView view = new HocPhiView();
         setContentPanel(view);
     }//GEN-LAST:event_btnhocphiActionPerformed
+
+    private void btnhomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhomeActionPerformed
+        Home view = new Home();
+        setContentPanel(view);
+    }//GEN-LAST:event_btnhomeActionPerformed
+
+    private void btntaikhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntaikhoanActionPerformed
+        TaikhoanView view = new TaikhoanView();
+        setContentPanel(view);
+    }//GEN-LAST:event_btntaikhoanActionPerformed
+
+    private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
+        int result = JOptionPane.showConfirmDialog(
+                this,
+                "Bạn có chắc chắn muốn đăng xuất?",
+                "Xác nhận đăng xuất",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (result == JOptionPane.YES_OPTION) {
+            // Mở lại form Login
+            Login loginForm = new Login();
+            new LoginController(loginForm);
+            loginForm.setVisible(true);
+            loginForm.setLocationRelativeTo(null);
+
+            // Đóng form hiện tại
+            this.dispose(); // hoặc ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
+        }
+    }//GEN-LAST:event_btnlogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -301,19 +415,13 @@ public class AdminMainMenu extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 AdminMainMenu view = new AdminMainMenu();
-                view.setLocationRelativeTo(null); // canh giữa màn hình
                 view.setVisible(true);
+                view.setLocationRelativeTo(null);
             }
         });
     }
@@ -324,16 +432,18 @@ public class AdminMainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btndkmon;
     private javax.swing.JButton btnhocky;
     private javax.swing.JButton btnhocphi;
+    private javax.swing.JButton btnhome;
+    private javax.swing.JButton btnlogout;
     private javax.swing.JButton btnlop;
     private javax.swing.JButton btnmon;
     private javax.swing.JButton btnnhapdiem;
     private javax.swing.JButton btnsv;
+    private javax.swing.JButton btntaikhoan;
     private javax.swing.JButton btnxemdiem;
     private javax.swing.JPanel contentpanel;
+    private javax.swing.JPanel header;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
