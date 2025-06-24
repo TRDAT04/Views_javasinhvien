@@ -48,7 +48,7 @@ public class hocphisv extends javax.swing.JPanel {
     public hocphisv(TaiKhoan tk) {
         initComponents();
         this.tk = tk;
-        txtmasv.setText(tk.getUsername() + "-" + tk.getHoten());
+        txtmasv.setText(tk.getHoten());
         loadhocky();
     }
 

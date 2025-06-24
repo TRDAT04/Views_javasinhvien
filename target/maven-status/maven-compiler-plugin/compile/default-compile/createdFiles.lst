@@ -11,6 +11,7 @@ Views_sv\dangkymonsv.class
 Views\sinhvien$8.class
 Views\LopView.class
 main\qlsinhvien\StudentMainMenu.class
+main\qlsinhvien\AdminMainMenu$13.class
 Views\DangKyView.class
 Views\sinhvien.class
 Views_sv\homesv$1.class
@@ -26,13 +27,16 @@ Views\TaikhoanView$5.class
 Views_sv\hocphisv$2.class
 DTO\SinhVienDTO.class
 Models\DiemId.class
+Views_sv\ketquahoctapsv.class
 Views\sinhvien$5.class
 main\qlsinhvien\StudentMainMenu$5.class
 Views\MonView$2.class
 Views\sinhvien$2.class
 Views\TaikhoanView$2.class
+main\qlsinhvien\StudentMainMenu$8.class
 Views\MonView$5.class
 Views\sinhvien$3.class
+Views_sv\ketquahoctapsv$1.class
 Controllers\LoginController.class
 Views\DanhSachDangKyView$2.class
 Views\HocPhiView$1.class
@@ -56,6 +60,7 @@ Views\MonView.class
 Views\NhapDiemView$2.class
 Views\HocKyView$3.class
 Views\TaikhoanView$3.class
+Views\Ketquahoctap$1.class
 Views\LopView$4.class
 main\qlsinhvien\StudentMainMenu$3.class
 Views\Home.class
@@ -63,6 +68,7 @@ main\qlsinhvien\AdminMainMenu$9.class
 Views_sv\hocphisv$1.class
 Views\XemDiemView.class
 Views\TaikhoanView$4.class
+Views\Ketquahoctap.class
 Views\XemDiemView$1.class
 Models\Diem.class
 main\qlsinhvien\AdminMainMenu$6.class

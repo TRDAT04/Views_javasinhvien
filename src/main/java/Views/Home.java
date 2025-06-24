@@ -11,7 +11,7 @@ import main.qlsinhvien.AdminMainMenu;
  * @author LNV
  */
 public class Home extends javax.swing.JPanel {
-
+    
     public AdminMainMenu mainMenu;
 
     /**
@@ -361,7 +361,7 @@ public class Home extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,26 +384,27 @@ public class Home extends javax.swing.JPanel {
         sinhvien panel = new sinhvien();
         mainMenu.setContentPanel(panel);
     }//GEN-LAST:event_btnsvActionPerformed
-
+    
     private void btndkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndkActionPerformed
         LopView view = new LopView();
         mainMenu.setContentPanel(view);
     }//GEN-LAST:event_btndkActionPerformed
-
+    
     private void btntaikhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntaikhoanActionPerformed
         TaikhoanView view = new TaikhoanView();
         mainMenu.setContentPanel(view);
     }//GEN-LAST:event_btntaikhoanActionPerformed
-
+    
     private void btnhoctapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhoctapActionPerformed
-        // TODO add your handling code here:
+        Ketquahoctap panel = new Ketquahoctap();
+        mainMenu.setContentPanel(panel);
     }//GEN-LAST:event_btnhoctapActionPerformed
-
+    
     private void btnkhoahocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkhoahocActionPerformed
         MonView panel = new MonView();
         mainMenu.setContentPanel(panel);
     }//GEN-LAST:event_btnkhoahocActionPerformed
-
+    
     private void btnhocphiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhocphiActionPerformed
         HocPhiView view = new HocPhiView();
         mainMenu.setContentPanel(view);

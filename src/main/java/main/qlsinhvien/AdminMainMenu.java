@@ -11,6 +11,7 @@ import Views.DangKyView;
 import Views.HocPhiView;
 import Views.HocKyView;
 import Views.Home;
+import Views.Ketquahoctap;
 import Views.Login;
 import Views.LopView;
 import Views.MonView;
@@ -45,11 +46,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
         Home view = new Home(this);
         setContentPanel(view);
     }
-
+    
     public void setContentPanel(JPanel panel) {
         contentpanel.removeAll();
         contentpanel.setLayout(new BorderLayout());
-
+        
         JScrollPane scrollPane = new JScrollPane(panel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -270,6 +271,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
         jButton10.setText("Kết quả học");
         jButton10.setBorder(null);
         jButton10.setContentAreaFilled(false);
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
         NavigationPanel.add(jButton10);
 
         btnhocphi.setBackground(new java.awt.Color(52, 58, 64));
@@ -321,52 +327,52 @@ public class AdminMainMenu extends javax.swing.JFrame {
         sinhvien panel = new sinhvien(); // khởi tạo panel mới
         setContentPanel(panel);
     }//GEN-LAST:event_btnsvActionPerformed
-
+    
     private void btnmonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmonActionPerformed
         MonView panel = new MonView();
         setContentPanel(panel);
     }//GEN-LAST:event_btnmonActionPerformed
-
+    
     private void btnlopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlopActionPerformed
         LopView view = new LopView();
         setContentPanel(view);
     }//GEN-LAST:event_btnlopActionPerformed
-
+    
     private void btnhockyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhockyActionPerformed
         HocKyView view = new HocKyView();
         setContentPanel(view);
     }//GEN-LAST:event_btnhockyActionPerformed
-
+    
     private void btndkmonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndkmonActionPerformed
         DangKyView panel = new DangKyView(this); // khởi tạo panel mới
         setContentPanel(panel);
     }//GEN-LAST:event_btndkmonActionPerformed
-
+    
     private void btnnhapdiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnhapdiemActionPerformed
         NhapDiemView view = new NhapDiemView();
         setContentPanel(view);
     }//GEN-LAST:event_btnnhapdiemActionPerformed
-
+    
     private void btnxemdiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxemdiemActionPerformed
         XemDiemView view = new XemDiemView();
         setContentPanel(view);
     }//GEN-LAST:event_btnxemdiemActionPerformed
-
+    
     private void btnhocphiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhocphiActionPerformed
         HocPhiView view = new HocPhiView();
         setContentPanel(view);
     }//GEN-LAST:event_btnhocphiActionPerformed
-
+    
     private void btnhomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhomeActionPerformed
         Home view = new Home(this);
         setContentPanel(view);
     }//GEN-LAST:event_btnhomeActionPerformed
-
+    
     private void btntaikhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntaikhoanActionPerformed
         TaikhoanView view = new TaikhoanView();
         setContentPanel(view);
     }//GEN-LAST:event_btntaikhoanActionPerformed
-
+    
     private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
         int result = JOptionPane.showConfirmDialog(
                 this,
@@ -375,7 +381,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE
         );
-
+        
         if (result == JOptionPane.YES_OPTION) {
             // Mở lại form Login
             Login loginForm = new Login();
@@ -387,6 +393,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
             this.dispose(); // hoặc ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
         }
     }//GEN-LAST:event_btnlogoutActionPerformed
+    
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        Ketquahoctap panel = new Ketquahoctap();
+        setContentPanel(panel);
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments

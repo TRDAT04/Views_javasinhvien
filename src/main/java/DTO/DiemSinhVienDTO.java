@@ -13,6 +13,7 @@ public class DiemSinhVienDTO {
     private String mamon;
     private String tenmon;
     private Double diem;
+    private int sotinchi;
 
     public DiemSinhVienDTO() {
     }
@@ -47,4 +48,11 @@ public class DiemSinhVienDTO {
         this.diem = diem;
     }
 
+    public int getSotinchi() {
+        return sotinchi;
+    }
+
+    public void setSotinchi(int sotinchi) {
+        this.sotinchi = sotinchi;
+    }
 }

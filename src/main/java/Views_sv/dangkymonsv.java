@@ -43,7 +43,7 @@ public class dangkymonsv extends javax.swing.JPanel {
         this.taiKhoan = taiKhoan;
         System.out.println("TaiKhoan được truyền vào: " + (taikhoan == null ? "null" : taikhoan.getUsername()));
         loadhocky();
-        txtsv.setText(taikhoan.getUsername() + "-" + taikhoan.getHoten());
+        txtsv.setText(taikhoan.getHoten());
         cbxhocky.addActionListener(e -> reloadMonHocTheoSinhVienVaHK());
     }
 

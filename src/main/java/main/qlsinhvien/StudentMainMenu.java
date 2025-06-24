@@ -11,6 +11,7 @@ import Views_sv.dangkymonsv;
 import Views_sv.diemsv;
 import Views_sv.hocphisv;
 import Views_sv.homesv;
+import Views_sv.ketquahoctapsv;
 import Views_sv.mondadksv;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -23,7 +24,7 @@ import javax.swing.JScrollPane;
  * @author LNV
  */
 public class StudentMainMenu extends javax.swing.JFrame {
-
+    
     private TaiKhoan taiKhoan;
 
     /**
@@ -35,17 +36,17 @@ public class StudentMainMenu extends javax.swing.JFrame {
         this.setResizable(false);
         homesv panel = new homesv(taiKhoan);
         setContentPanel(panel);
-
+        
     }
-
+    
     public StudentMainMenu() {
         initComponents();
     }
-
+    
     public void setContentPanel(JPanel panel) {
         contentpanel.removeAll();
         contentpanel.setLayout(new BorderLayout());
-
+        
         JScrollPane scrollPane = new JScrollPane(panel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -75,6 +76,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         btnmondadk = new javax.swing.JButton();
         btnxemdiem = new javax.swing.JButton();
         btnhocphi = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         FooterPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         contentpanel = new javax.swing.JPanel();
@@ -170,6 +172,13 @@ public class StudentMainMenu extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Kết quả học");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout NavigationPanelLayout = new javax.swing.GroupLayout(NavigationPanel);
         NavigationPanel.setLayout(NavigationPanelLayout);
         NavigationPanelLayout.setHorizontalGroup(
@@ -178,6 +187,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
             .addComponent(btnmondadk, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(btnxemdiem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnhocphi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         NavigationPanelLayout.setVerticalGroup(
             NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,6 +199,8 @@ public class StudentMainMenu extends javax.swing.JFrame {
                 .addComponent(btnxemdiem, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnhocphi, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -244,7 +256,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         homesv panel = new homesv(taiKhoan);
         setContentPanel(panel);
     }//GEN-LAST:event_btnhomeActionPerformed
-
+    
     private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
         int result = JOptionPane.showConfirmDialog(
                 this,
@@ -253,7 +265,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE
         );
-
+        
         if (result == JOptionPane.YES_OPTION) {
             // Mở lại form Login
             Login loginForm = new Login();
@@ -265,28 +277,33 @@ public class StudentMainMenu extends javax.swing.JFrame {
             this.dispose(); // hoặc ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
         }
     }//GEN-LAST:event_btnlogoutActionPerformed
-
+    
     private void btndkmonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndkmonActionPerformed
         dangkymonsv panel = new dangkymonsv(taiKhoan);
-
+        
         setContentPanel(panel);
-
+        
     }//GEN-LAST:event_btndkmonActionPerformed
-
+    
     private void btnmondadkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmondadkActionPerformed
         mondadksv panel = new mondadksv(taiKhoan);
         setContentPanel(panel);
     }//GEN-LAST:event_btnmondadkActionPerformed
-
+    
     private void btnxemdiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxemdiemActionPerformed
         diemsv panel = new diemsv(taiKhoan);
         setContentPanel(panel);
     }//GEN-LAST:event_btnxemdiemActionPerformed
-
+    
     private void btnhocphiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhocphiActionPerformed
         hocphisv panel = new hocphisv(taiKhoan);
         setContentPanel(panel);
     }//GEN-LAST:event_btnhocphiActionPerformed
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ketquahoctapsv panel = new ketquahoctapsv(taiKhoan);
+        setContentPanel(panel);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -335,6 +352,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnxemdiem;
     private javax.swing.JPanel contentpanel;
     private javax.swing.JPanel header;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
