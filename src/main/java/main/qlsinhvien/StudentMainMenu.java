@@ -5,8 +5,18 @@
 package main.qlsinhvien;
 
 import Controllers.LoginController;
+import Models.TaiKhoan;
 import Views.Login;
+import Views_sv.dangkymonsv;
+import Views_sv.diemsv;
+import Views_sv.hocphisv;
+import Views_sv.homesv;
+import Views_sv.mondadksv;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -14,11 +24,37 @@ import javax.swing.JOptionPane;
  */
 public class StudentMainMenu extends javax.swing.JFrame {
 
+    private TaiKhoan taiKhoan;
+
     /**
      * Creates new form AdminMainMenu
      */
+    public StudentMainMenu(TaiKhoan taiKhoan) {
+        initComponents();
+        this.taiKhoan = taiKhoan;
+        this.setResizable(false);
+        homesv panel = new homesv(taiKhoan);
+        setContentPanel(panel);
+
+    }
+
     public StudentMainMenu() {
         initComponents();
+    }
+
+    public void setContentPanel(JPanel panel) {
+        contentpanel.removeAll();
+        contentpanel.setLayout(new BorderLayout());
+
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(8, Integer.MAX_VALUE));
+        scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(Integer.MAX_VALUE, 8));
+        scrollPane.setBorder(null);
+        contentpanel.add(scrollPane, BorderLayout.CENTER);
+        contentpanel.revalidate();
+        contentpanel.repaint();
     }
 
     /**
@@ -34,14 +70,14 @@ public class StudentMainMenu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnhome = new javax.swing.JButton();
         btnlogout = new javax.swing.JButton();
+        NavigationPanel = new javax.swing.JPanel();
+        btndkmon = new javax.swing.JButton();
+        btnmondadk = new javax.swing.JButton();
+        btnxemdiem = new javax.swing.JButton();
+        btnhocphi = new javax.swing.JButton();
         FooterPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         contentpanel = new javax.swing.JPanel();
-        NavigationPanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,13 +138,69 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
         getContentPane().add(header, java.awt.BorderLayout.PAGE_START);
 
+        NavigationPanel.setBackground(new java.awt.Color(36, 61, 85));
+        NavigationPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createEmptyBorder(10, 10, 20, 10)));
+        NavigationPanel.setPreferredSize(new java.awt.Dimension(130, 271));
+
+        btndkmon.setText("Đăng kí môn");
+        btndkmon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndkmonActionPerformed(evt);
+            }
+        });
+
+        btnmondadk.setText("Môn học");
+        btnmondadk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmondadkActionPerformed(evt);
+            }
+        });
+
+        btnxemdiem.setText("Xem ĐIểm");
+        btnxemdiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxemdiemActionPerformed(evt);
+            }
+        });
+
+        btnhocphi.setText("Học Phí");
+        btnhocphi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhocphiActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout NavigationPanelLayout = new javax.swing.GroupLayout(NavigationPanel);
+        NavigationPanel.setLayout(NavigationPanelLayout);
+        NavigationPanelLayout.setHorizontalGroup(
+            NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btndkmon, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+            .addComponent(btnmondadk, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(btnxemdiem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnhocphi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        NavigationPanelLayout.setVerticalGroup(
+            NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(NavigationPanelLayout.createSequentialGroup()
+                .addComponent(btndkmon, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnmondadk, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnxemdiem, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnhocphi, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        getContentPane().add(NavigationPanel, java.awt.BorderLayout.LINE_START);
+
         FooterPanel.setBackground(new java.awt.Color(0, 123, 255));
         FooterPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         FooterPanel.setPreferredSize(new java.awt.Dimension(745, 40));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("© 2024 Student Management System. All rights reserved.");
+        jLabel2.setText("© 2025 Student Management System. All rights reserved.");
 
         javax.swing.GroupLayout FooterPanelLayout = new javax.swing.GroupLayout(FooterPanel);
         FooterPanel.setLayout(FooterPanelLayout);
@@ -132,57 +224,15 @@ public class StudentMainMenu extends javax.swing.JFrame {
         contentpanel.setBackground(new java.awt.Color(255, 255, 255));
         contentpanel.setPreferredSize(new java.awt.Dimension(615, 520));
 
-        NavigationPanel.setBackground(new java.awt.Color(36, 61, 85));
-        NavigationPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createEmptyBorder(10, 10, 20, 10)));
-        NavigationPanel.setPreferredSize(new java.awt.Dimension(130, 271));
-
-        jButton1.setText("Đăng kí môn");
-
-        jButton2.setText("Môn học đã đăng kí");
-
-        jButton3.setText("Xem ĐIểm");
-
-        jButton4.setText("Học Phí");
-
-        javax.swing.GroupLayout NavigationPanelLayout = new javax.swing.GroupLayout(NavigationPanel);
-        NavigationPanel.setLayout(NavigationPanelLayout);
-        NavigationPanelLayout.setHorizontalGroup(
-            NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-            .addGroup(NavigationPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-        );
-        NavigationPanelLayout.setVerticalGroup(
-            NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NavigationPanelLayout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout contentpanelLayout = new javax.swing.GroupLayout(contentpanel);
         contentpanel.setLayout(contentpanelLayout);
         contentpanelLayout.setHorizontalGroup(
             contentpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(contentpanelLayout.createSequentialGroup()
-                .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 585, Short.MAX_VALUE))
+            .addGap(0, 585, Short.MAX_VALUE)
         );
         contentpanelLayout.setVerticalGroup(
             contentpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentpanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(0, 474, Short.MAX_VALUE)
         );
 
         getContentPane().add(contentpanel, java.awt.BorderLayout.CENTER);
@@ -191,7 +241,8 @@ public class StudentMainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnhomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhomeActionPerformed
-
+        homesv panel = new homesv(taiKhoan);
+        setContentPanel(panel);
     }//GEN-LAST:event_btnhomeActionPerformed
 
     private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
@@ -214,6 +265,28 @@ public class StudentMainMenu extends javax.swing.JFrame {
             this.dispose(); // hoặc ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
         }
     }//GEN-LAST:event_btnlogoutActionPerformed
+
+    private void btndkmonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndkmonActionPerformed
+        dangkymonsv panel = new dangkymonsv(taiKhoan);
+
+        setContentPanel(panel);
+
+    }//GEN-LAST:event_btndkmonActionPerformed
+
+    private void btnmondadkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmondadkActionPerformed
+        mondadksv panel = new mondadksv(taiKhoan);
+        setContentPanel(panel);
+    }//GEN-LAST:event_btnmondadkActionPerformed
+
+    private void btnxemdiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxemdiemActionPerformed
+        diemsv panel = new diemsv(taiKhoan);
+        setContentPanel(panel);
+    }//GEN-LAST:event_btnxemdiemActionPerformed
+
+    private void btnhocphiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhocphiActionPerformed
+        hocphisv panel = new hocphisv(taiKhoan);
+        setContentPanel(panel);
+    }//GEN-LAST:event_btnhocphiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,14 +327,14 @@ public class StudentMainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FooterPanel;
     private javax.swing.JPanel NavigationPanel;
+    private javax.swing.JButton btndkmon;
+    private javax.swing.JButton btnhocphi;
     private javax.swing.JButton btnhome;
     private javax.swing.JButton btnlogout;
+    private javax.swing.JButton btnmondadk;
+    private javax.swing.JButton btnxemdiem;
     private javax.swing.JPanel contentpanel;
     private javax.swing.JPanel header;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables

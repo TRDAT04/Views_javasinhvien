@@ -42,7 +42,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
     public AdminMainMenu() {
         initComponents();
         this.setResizable(false);
-        Home view = new Home();
+        Home view = new Home(this);
         setContentPanel(view);
     }
 
@@ -154,7 +154,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("© 2024 Student Management System. All rights reserved.");
+        jLabel2.setText("© 2025 Student Management System. All rights reserved.");
 
         javax.swing.GroupLayout FooterPanelLayout = new javax.swing.GroupLayout(FooterPanel);
         FooterPanel.setLayout(FooterPanelLayout);
@@ -358,7 +358,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnhocphiActionPerformed
 
     private void btnhomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhomeActionPerformed
-        Home view = new Home();
+        Home view = new Home(this);
         setContentPanel(view);
     }//GEN-LAST:event_btnhomeActionPerformed
 

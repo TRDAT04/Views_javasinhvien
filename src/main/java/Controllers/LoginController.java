@@ -46,7 +46,7 @@ public class LoginController {
                     adminMenu.setVisible(true);
 
                 } else if ("sinhvien".equalsIgnoreCase(acc.getRole())) {
-                    StudentMainMenu studentMenu = new StudentMainMenu();
+                    StudentMainMenu studentMenu = new StudentMainMenu(acc);
                     studentMenu.setLocationRelativeTo(null);
                     studentMenu.setVisible(true);
                 }

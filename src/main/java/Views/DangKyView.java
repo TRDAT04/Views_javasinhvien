@@ -275,7 +275,7 @@ public class DangKyView extends javax.swing.JPanel {
         String masv = svSelection.split("-")[0].trim();
         String mahk = hkMap.get(hkSelection);
 
-        DanhSachDangKyView panel = new DanhSachDangKyView(masv, mahk); // giả sử class này extends JPanel
+        DanhSachDangKyView panel = new DanhSachDangKyView(masv, mahk);
 
         mainMenu.setContentPanel(panel);
     }//GEN-LAST:event_btnmondadkActionPerformed

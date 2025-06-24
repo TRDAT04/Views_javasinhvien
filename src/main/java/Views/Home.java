@@ -4,17 +4,22 @@
  */
 package Views;
 
+import main.qlsinhvien.AdminMainMenu;
+
 /**
  *
  * @author LNV
  */
 public class Home extends javax.swing.JPanel {
 
+    public AdminMainMenu mainMenu;
+
     /**
      * Creates new form Home
      */
-    public Home() {
+    public Home(AdminMainMenu mainMenu) {
         initComponents();
+        this.mainMenu = mainMenu;
     }
 
     /**
@@ -28,27 +33,27 @@ public class Home extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnsv = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnkhoahoc = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btnhoctap = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        btndk = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        btnhocphi = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
+        btntaikhoan = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -62,12 +67,12 @@ public class Home extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Quản Lý Sinh Viên");
 
-        jButton1.setBackground(new java.awt.Color(13, 110, 253));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Quản lý");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnsv.setBackground(new java.awt.Color(13, 110, 253));
+        btnsv.setForeground(new java.awt.Color(255, 255, 255));
+        btnsv.setText("Quản lý");
+        btnsv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnsvActionPerformed(evt);
             }
         });
 
@@ -83,7 +88,7 @@ public class Home extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnsv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(jLabel1)
@@ -102,7 +107,7 @@ public class Home extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnsv)
                 .addGap(10, 10, 10))
         );
 
@@ -112,9 +117,14 @@ public class Home extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Quản Lý Khóa Học");
 
-        jButton2.setBackground(new java.awt.Color(13, 110, 253));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Quản lý");
+        btnkhoahoc.setBackground(new java.awt.Color(13, 110, 253));
+        btnkhoahoc.setForeground(new java.awt.Color(255, 255, 255));
+        btnkhoahoc.setText("Quản lý");
+        btnkhoahoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnkhoahocActionPerformed(evt);
+            }
+        });
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/book.png"))); // NOI18N
 
@@ -124,7 +134,7 @@ public class Home extends javax.swing.JPanel {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnkhoahoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
@@ -143,7 +153,7 @@ public class Home extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnkhoahoc)
                 .addGap(10, 10, 10))
         );
 
@@ -153,12 +163,12 @@ public class Home extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Quản Lý Học Tập");
 
-        jButton3.setBackground(new java.awt.Color(13, 110, 253));
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Quản lý");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnhoctap.setBackground(new java.awt.Color(13, 110, 253));
+        btnhoctap.setForeground(new java.awt.Color(255, 255, 255));
+        btnhoctap.setText("Quản lý");
+        btnhoctap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnhoctapActionPerformed(evt);
             }
         });
 
@@ -170,7 +180,7 @@ public class Home extends javax.swing.JPanel {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnhoctap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
@@ -189,26 +199,26 @@ public class Home extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(btnhoctap)
                 .addGap(10, 10, 10))
         );
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton4.setBackground(new java.awt.Color(13, 110, 253));
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Quản lý");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btndk.setBackground(new java.awt.Color(13, 110, 253));
+        btndk.setForeground(new java.awt.Color(255, 255, 255));
+        btndk.setText("Quản lý");
+        btndk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btndkActionPerformed(evt);
             }
         });
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/contract.png"))); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel9.setText("Quản Lý Đăng ký");
+        jLabel9.setText("Quản Lý Lớp Học");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -216,17 +226,17 @@ public class Home extends javax.swing.JPanel {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btndk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
-            .addGroup(jPanel9Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel9))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jLabel8)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(32, 32, 32))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(64, 64, 64))))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,16 +246,21 @@ public class Home extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(btndk)
                 .addGap(10, 10, 10))
         );
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
         jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton5.setBackground(new java.awt.Color(13, 110, 253));
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Quản lý");
+        btnhocphi.setBackground(new java.awt.Color(13, 110, 253));
+        btnhocphi.setForeground(new java.awt.Color(255, 255, 255));
+        btnhocphi.setText("Quản lý");
+        btnhocphi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhocphiActionPerformed(evt);
+            }
+        });
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money.png"))); // NOI18N
 
@@ -258,7 +273,7 @@ public class Home extends javax.swing.JPanel {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnhocphi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +293,7 @@ public class Home extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
+                .addComponent(btnhocphi)
                 .addGap(10, 10, 10))
         );
 
@@ -288,12 +303,12 @@ public class Home extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setText("Quản Lý Tài Khoản");
 
-        jButton6.setBackground(new java.awt.Color(13, 110, 253));
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Quản lý");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btntaikhoan.setBackground(new java.awt.Color(13, 110, 253));
+        btntaikhoan.setForeground(new java.awt.Color(255, 255, 255));
+        btntaikhoan.setText("Quản lý");
+        btntaikhoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btntaikhoanActionPerformed(evt);
             }
         });
 
@@ -305,7 +320,7 @@ public class Home extends javax.swing.JPanel {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btntaikhoan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,7 +340,7 @@ public class Home extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
+                .addComponent(btntaikhoan)
                 .addGap(10, 10, 10))
         );
 
@@ -351,7 +366,7 @@ public class Home extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -360,33 +375,47 @@ public class Home extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsvActionPerformed
+        sinhvien panel = new sinhvien();
+        mainMenu.setContentPanel(panel);
+    }//GEN-LAST:event_btnsvActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btndkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndkActionPerformed
+        LopView view = new LopView();
+        mainMenu.setContentPanel(view);
+    }//GEN-LAST:event_btndkActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void btntaikhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntaikhoanActionPerformed
+        TaikhoanView view = new TaikhoanView();
+        mainMenu.setContentPanel(view);
+    }//GEN-LAST:event_btntaikhoanActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnhoctapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhoctapActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnhoctapActionPerformed
+
+    private void btnkhoahocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkhoahocActionPerformed
+        MonView panel = new MonView();
+        mainMenu.setContentPanel(panel);
+    }//GEN-LAST:event_btnkhoahocActionPerformed
+
+    private void btnhocphiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhocphiActionPerformed
+        HocPhiView view = new HocPhiView();
+        mainMenu.setContentPanel(view);
+    }//GEN-LAST:event_btnhocphiActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton btndk;
+    private javax.swing.JButton btnhocphi;
+    private javax.swing.JButton btnhoctap;
+    private javax.swing.JButton btnkhoahoc;
+    private javax.swing.JButton btnsv;
+    private javax.swing.JButton btntaikhoan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
