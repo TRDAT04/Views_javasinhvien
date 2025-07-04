@@ -18,8 +18,10 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import main.qlsinhvien.ExcelExporter;
 
 /**
  *
@@ -384,10 +386,7 @@ public class TaikhoanView extends javax.swing.JPanel {
         TaiKhoan tk = new TaiKhoan(user, pass, role, name);
         Gson gson = new Gson();
         String jsonInputString = gson.toJson(tk);
-        //        if (isExists(mamon)) {
-        //            JOptionPane.showMessageDialog(this, "Mã lớp đã tồn tại. Vui lòng nhập mã khác.");
-        //            return;
-        //        }
+
         try {
             URL url = new URL("http://localhost:8080/api/taikhoan");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -405,7 +404,15 @@ public class TaikhoanView extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công");
                 loadtb();
             } else {
-                JOptionPane.showMessageDialog(this, "Thêm mới thất bại");
+                BufferedReader br = new BufferedReader(new InputStreamReader(con.getErrorStream(), "utf-8"));
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+
+                JOptionPane.showMessageDialog(this, "Thêm mới thất bại: " + response.toString());
+
             }
 
         } catch (Exception e) {
@@ -531,7 +538,23 @@ public class TaikhoanView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnxoaActionPerformed
 
     private void btnxuatexxcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxuatexxcelActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Lưu file Excel");
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            String path = fileChooser.getSelectedFile().getAbsolutePath();
+            // Nếu chưa có đuôi .xlsx thì thêm vào
+            if (!path.toLowerCase().endsWith(".xlsx")) {
+                path += ".xlsx";
+            }
+            try {
+                ExcelExporter.exportTable(jTable1, path);
+                JOptionPane.showMessageDialog(this, "Xuất file Excel thành công!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: " + e.getMessage());
+            }
+        }
     }//GEN-LAST:event_btnxuatexxcelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -30,20 +30,18 @@ import main.qlsinhvien.AdminMainMenu;
  */
 public class dangkymonsv extends javax.swing.JPanel {
 
-    private TaiKhoan taiKhoan;
+    private TaiKhoan tk;
     private java.util.HashMap<String, String> hkMap = new java.util.HashMap<>(); // key = tên hk, value = mã hk
     private java.util.HashMap<String, String> hkMapReverse = new java.util.HashMap<>();
 
     /**
      * Creates new form dangkymonsv
      */
-    public dangkymonsv(TaiKhoan taikhoan) {
+    public dangkymonsv(TaiKhoan tk) {
         initComponents();
-
-        this.taiKhoan = taiKhoan;
-        System.out.println("TaiKhoan được truyền vào: " + (taikhoan == null ? "null" : taikhoan.getUsername()));
+        this.tk = tk;
         loadhocky();
-        txtsv.setText(taikhoan.getHoten());
+        txtsv.setText(tk.getHoten());
         cbxhocky.addActionListener(e -> reloadMonHocTheoSinhVienVaHK());
     }
 
@@ -179,7 +177,7 @@ private List<DangKy> getMonHocDaChon() {
         List<DangKy> list = new ArrayList<>();
         DefaultTableModel model = (DefaultTableModel) tablemonhoc.getModel();
 
-        String masv = taiKhoan.getUsername();
+        String masv = tk.getUsername();
         String mahk = hkMap.get(cbxhocky.getSelectedItem());
 
         for (int i = 0; i < model.getRowCount(); i++) {
@@ -240,14 +238,11 @@ private List<DangKy> getMonHocDaChon() {
     }//GEN-LAST:event_btnlammoiActionPerformed
 
     private void reloadMonHocTheoSinhVienVaHK() {
-        if (taiKhoan == null) {
+        if (tk == null) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy tài khoản sinh viên!");
             return;
         }
-        String selectedHocKy = (String) cbxhocky.getSelectedItem();
-
-        String masv = taiKhoan.getUsername();
-        String mahk = hkMap.get(selectedHocKy);
+        String masv = tk.getUsername();
 
         try {
             URL url = new URL("http://localhost:8080/api/mon/chuadangky?masv=" + URLEncoder.encode(masv, "UTF-8"));

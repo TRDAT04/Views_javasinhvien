@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import java.awt.Dimension;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -25,6 +26,7 @@ import java.util.Date;
 import javax.swing.JFileChooser;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 import javax.swing.table.DefaultTableModel;
 import main.qlsinhvien.ExcelExporter;
@@ -575,9 +577,9 @@ public class sinhvien extends javax.swing.JPanel {
     private void clear() {
         txtmasv.setText("");
         txtname.setText("");
-        dateNS.setDate(null); // Xóa ngày
-        cbgoitinh.setSelectedIndex(0); // Hoặc -1 nếu không muốn chọn gì mặc định
-        cbclass.setSelectedIndex(0); // Tương tự với combobox lớp
+        dateNS.setDate(null);
+        cbgoitinh.setSelectedIndex(0);
+        cbclass.setSelectedIndex(0);
         txtphone.setText("");
         txtmail.setText("");
 
@@ -624,11 +626,6 @@ public class sinhvien extends javax.swing.JPanel {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String ngaysinh = sdf.format(dateNS.getDate());
 
-        if (isExists(maSV)) {
-            JOptionPane.showMessageDialog(this, "Mã sinh viên đã tồn tại. Vui lòng nhập mã khác.");
-            return;
-        }
-
         SinhVien sv = new SinhVien(maSV, hoten, ngaysinh, gioitinh, dienthoai, email, malop);
 
         Gson gson = new Gson();
@@ -652,7 +649,14 @@ public class sinhvien extends javax.swing.JPanel {
                 loadtb();
                 clear();
             } else {
-                JOptionPane.showMessageDialog(this, "Thêm mới thất bại, mã lỗi: " + code);
+                InputStream errorStream = con.getErrorStream();
+                if (errorStream != null) {
+                    String errorMsg = new BufferedReader(new InputStreamReader(errorStream, "utf-8"))
+                            .lines().collect(Collectors.joining("\n"));
+                    JOptionPane.showMessageDialog(this, "Thêm mới thất bại: " + errorMsg);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm mới thất bại, mã lỗi: " + code);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

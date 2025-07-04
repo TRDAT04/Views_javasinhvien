@@ -17,6 +17,7 @@ import Views.LopView;
 import Views.MonView;
 import Views.NhapDiemView;
 import Views.TaikhoanView;
+import Views.ThongKeVIew;
 import Views.XemDiemView;
 import Views.sinhvien;
 import java.awt.BorderLayout;
@@ -46,11 +47,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
         Home view = new Home(this);
         setContentPanel(view);
     }
-    
+
     public void setContentPanel(JPanel panel) {
         contentpanel.removeAll();
         contentpanel.setLayout(new BorderLayout());
-        
+
         JScrollPane scrollPane = new JScrollPane(panel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -86,6 +87,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
         btnnhapdiem = new javax.swing.JButton();
         btnxemdiem = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         btnhocphi = new javax.swing.JButton();
         btntaikhoan = new javax.swing.JButton();
         contentpanel = new javax.swing.JPanel();
@@ -184,9 +186,10 @@ public class AdminMainMenu extends javax.swing.JFrame {
         btnsv.setBackground(new java.awt.Color(52, 58, 64));
         btnsv.setForeground(new java.awt.Color(255, 255, 255));
         btnsv.setText("Quản lý SV");
-        btnsv.setBorder(null);
+        btnsv.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 18, 1, 1));
         btnsv.setBorderPainted(false);
         btnsv.setContentAreaFilled(false);
+        btnsv.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnsv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnsvActionPerformed(evt);
@@ -197,8 +200,9 @@ public class AdminMainMenu extends javax.swing.JFrame {
         btnmon.setBackground(new java.awt.Color(52, 58, 64));
         btnmon.setForeground(new java.awt.Color(255, 255, 255));
         btnmon.setText("Quản lý môn");
-        btnmon.setBorder(null);
+        btnmon.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 18, 1, 1));
         btnmon.setContentAreaFilled(false);
+        btnmon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnmon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnmonActionPerformed(evt);
@@ -209,8 +213,9 @@ public class AdminMainMenu extends javax.swing.JFrame {
         btnlop.setBackground(new java.awt.Color(52, 58, 64));
         btnlop.setForeground(new java.awt.Color(255, 255, 255));
         btnlop.setText("Quản lý lớp");
-        btnlop.setBorder(null);
+        btnlop.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 18, 1, 1));
         btnlop.setContentAreaFilled(false);
+        btnlop.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnlop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnlopActionPerformed(evt);
@@ -221,8 +226,9 @@ public class AdminMainMenu extends javax.swing.JFrame {
         btnhocky.setBackground(new java.awt.Color(52, 58, 64));
         btnhocky.setForeground(new java.awt.Color(255, 255, 255));
         btnhocky.setText("Học kỳ");
-        btnhocky.setBorder(null);
+        btnhocky.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 18, 1, 1));
         btnhocky.setContentAreaFilled(false);
+        btnhocky.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnhocky.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnhockyActionPerformed(evt);
@@ -233,8 +239,9 @@ public class AdminMainMenu extends javax.swing.JFrame {
         btndkmon.setBackground(new java.awt.Color(52, 58, 64));
         btndkmon.setForeground(new java.awt.Color(255, 255, 255));
         btndkmon.setText("Đăng kí môn");
-        btndkmon.setBorder(null);
+        btndkmon.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 18, 1, 1));
         btndkmon.setContentAreaFilled(false);
+        btndkmon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btndkmon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btndkmonActionPerformed(evt);
@@ -245,8 +252,9 @@ public class AdminMainMenu extends javax.swing.JFrame {
         btnnhapdiem.setBackground(new java.awt.Color(52, 58, 64));
         btnnhapdiem.setForeground(new java.awt.Color(255, 255, 255));
         btnnhapdiem.setText("Nhập điểm");
-        btnnhapdiem.setBorder(null);
+        btnnhapdiem.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 18, 1, 1));
         btnnhapdiem.setContentAreaFilled(false);
+        btnnhapdiem.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnnhapdiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnnhapdiemActionPerformed(evt);
@@ -257,8 +265,9 @@ public class AdminMainMenu extends javax.swing.JFrame {
         btnxemdiem.setBackground(new java.awt.Color(52, 58, 64));
         btnxemdiem.setForeground(new java.awt.Color(255, 255, 255));
         btnxemdiem.setText("Xem điểm");
-        btnxemdiem.setBorder(null);
+        btnxemdiem.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 18, 1, 1));
         btnxemdiem.setContentAreaFilled(false);
+        btnxemdiem.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnxemdiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnxemdiemActionPerformed(evt);
@@ -269,8 +278,9 @@ public class AdminMainMenu extends javax.swing.JFrame {
         jButton10.setBackground(new java.awt.Color(52, 58, 64));
         jButton10.setForeground(new java.awt.Color(255, 255, 255));
         jButton10.setText("Kết quả học");
-        jButton10.setBorder(null);
+        jButton10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 18, 1, 1));
         jButton10.setContentAreaFilled(false);
+        jButton10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
@@ -278,11 +288,24 @@ public class AdminMainMenu extends javax.swing.JFrame {
         });
         NavigationPanel.add(jButton10);
 
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Thống kê");
+        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 18, 1, 1));
+        jButton1.setContentAreaFilled(false);
+        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        NavigationPanel.add(jButton1);
+
         btnhocphi.setBackground(new java.awt.Color(52, 58, 64));
         btnhocphi.setForeground(new java.awt.Color(255, 255, 255));
         btnhocphi.setText("Học phí");
-        btnhocphi.setBorder(null);
+        btnhocphi.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 18, 1, 1));
         btnhocphi.setContentAreaFilled(false);
+        btnhocphi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnhocphi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnhocphiActionPerformed(evt);
@@ -293,8 +316,9 @@ public class AdminMainMenu extends javax.swing.JFrame {
         btntaikhoan.setBackground(new java.awt.Color(52, 58, 64));
         btntaikhoan.setForeground(new java.awt.Color(255, 255, 255));
         btntaikhoan.setText("Tài khoản");
-        btntaikhoan.setBorder(null);
+        btntaikhoan.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 18, 1, 1));
         btntaikhoan.setContentAreaFilled(false);
+        btntaikhoan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btntaikhoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btntaikhoanActionPerformed(evt);
@@ -327,52 +351,52 @@ public class AdminMainMenu extends javax.swing.JFrame {
         sinhvien panel = new sinhvien(); // khởi tạo panel mới
         setContentPanel(panel);
     }//GEN-LAST:event_btnsvActionPerformed
-    
+
     private void btnmonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmonActionPerformed
         MonView panel = new MonView();
         setContentPanel(panel);
     }//GEN-LAST:event_btnmonActionPerformed
-    
+
     private void btnlopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlopActionPerformed
         LopView view = new LopView();
         setContentPanel(view);
     }//GEN-LAST:event_btnlopActionPerformed
-    
+
     private void btnhockyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhockyActionPerformed
         HocKyView view = new HocKyView();
         setContentPanel(view);
     }//GEN-LAST:event_btnhockyActionPerformed
-    
+
     private void btndkmonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndkmonActionPerformed
         DangKyView panel = new DangKyView(this); // khởi tạo panel mới
         setContentPanel(panel);
     }//GEN-LAST:event_btndkmonActionPerformed
-    
+
     private void btnnhapdiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnhapdiemActionPerformed
         NhapDiemView view = new NhapDiemView();
         setContentPanel(view);
     }//GEN-LAST:event_btnnhapdiemActionPerformed
-    
+
     private void btnxemdiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxemdiemActionPerformed
         XemDiemView view = new XemDiemView();
         setContentPanel(view);
     }//GEN-LAST:event_btnxemdiemActionPerformed
-    
+
     private void btnhocphiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhocphiActionPerformed
         HocPhiView view = new HocPhiView();
         setContentPanel(view);
     }//GEN-LAST:event_btnhocphiActionPerformed
-    
+
     private void btnhomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhomeActionPerformed
         Home view = new Home(this);
         setContentPanel(view);
     }//GEN-LAST:event_btnhomeActionPerformed
-    
+
     private void btntaikhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntaikhoanActionPerformed
         TaikhoanView view = new TaikhoanView();
         setContentPanel(view);
     }//GEN-LAST:event_btntaikhoanActionPerformed
-    
+
     private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
         int result = JOptionPane.showConfirmDialog(
                 this,
@@ -381,7 +405,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE
         );
-        
+
         if (result == JOptionPane.YES_OPTION) {
             // Mở lại form Login
             Login loginForm = new Login();
@@ -393,11 +417,16 @@ public class AdminMainMenu extends javax.swing.JFrame {
             this.dispose(); // hoặc ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
         }
     }//GEN-LAST:event_btnlogoutActionPerformed
-    
+
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         Ketquahoctap panel = new Ketquahoctap();
         setContentPanel(panel);
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ThongKeVIew panel = new ThongKeVIew();
+        setContentPanel(panel);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -453,6 +482,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnxemdiem;
     private javax.swing.JPanel contentpanel;
     private javax.swing.JPanel header;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -355,7 +355,6 @@ public class DangKyView extends javax.swing.JPanel {
         }
 
         String masv = selectedSinhVien.split(" - ")[0].trim();  // vì chuỗi dạng "SV001 - Nguyễn Văn A"
-        String mahk = hkMap.get(selectedHocKy);
 
         try {
             URL url = new URL("http://localhost:8080/api/mon/chuadangky?masv=" + URLEncoder.encode(masv, "UTF-8"));

@@ -5,6 +5,7 @@
 package Views_sv;
 
 import Models.TaiKhoan;
+import main.qlsinhvien.StudentMainMenu;
 
 /**
  *
@@ -13,19 +14,16 @@ import Models.TaiKhoan;
 public class homesv extends javax.swing.JPanel {
 
     private TaiKhoan tk;
+    public StudentMainMenu student;
 
     /**
      * Creates new form homsv
      */
-    public homesv(TaiKhoan tk) {
+    public homesv(TaiKhoan tk, StudentMainMenu student) {
         initComponents();
         this.tk = tk;
+        this.student = student;
         lblwelcome.setText("Xin chào, " + tk.getHoten());
-    }
-
-    public homesv() {
-        initComponents();
-
     }
 
     /**
@@ -38,20 +36,20 @@ public class homesv extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel9 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        btnxemmon = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btndkmon = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        btnhocphi = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btnkqhoc = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         lblwelcome = new javax.swing.JLabel();
 
@@ -61,12 +59,12 @@ public class homesv extends javax.swing.JPanel {
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton4.setBackground(new java.awt.Color(13, 110, 253));
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Quản lý");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnxemmon.setBackground(new java.awt.Color(13, 110, 253));
+        btnxemmon.setForeground(new java.awt.Color(255, 255, 255));
+        btnxemmon.setText("Quản lý");
+        btnxemmon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnxemmonActionPerformed(evt);
             }
         });
 
@@ -81,7 +79,7 @@ public class homesv extends javax.swing.JPanel {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnxemmon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
@@ -100,7 +98,7 @@ public class homesv extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(btnxemmon)
                 .addGap(10, 10, 10))
         );
 
@@ -110,9 +108,14 @@ public class homesv extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Đăng Ký Môn Học");
 
-        jButton2.setBackground(new java.awt.Color(13, 110, 253));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Quản lý");
+        btndkmon.setBackground(new java.awt.Color(13, 110, 253));
+        btndkmon.setForeground(new java.awt.Color(255, 255, 255));
+        btndkmon.setText("Quản lý");
+        btndkmon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndkmonActionPerformed(evt);
+            }
+        });
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/book.png"))); // NOI18N
 
@@ -122,7 +125,7 @@ public class homesv extends javax.swing.JPanel {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btndkmon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
@@ -141,16 +144,21 @@ public class homesv extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btndkmon)
                 .addGap(10, 10, 10))
         );
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
         jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton5.setBackground(new java.awt.Color(13, 110, 253));
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Quản lý");
+        btnhocphi.setBackground(new java.awt.Color(13, 110, 253));
+        btnhocphi.setForeground(new java.awt.Color(255, 255, 255));
+        btnhocphi.setText("Quản lý");
+        btnhocphi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhocphiActionPerformed(evt);
+            }
+        });
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money.png"))); // NOI18N
 
@@ -163,7 +171,7 @@ public class homesv extends javax.swing.JPanel {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnhocphi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,7 +191,7 @@ public class homesv extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
+                .addComponent(btnhocphi)
                 .addGap(10, 10, 10))
         );
 
@@ -193,12 +201,12 @@ public class homesv extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Kết Quả Học Tập");
 
-        jButton3.setBackground(new java.awt.Color(13, 110, 253));
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Quản lý");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnkqhoc.setBackground(new java.awt.Color(13, 110, 253));
+        btnkqhoc.setForeground(new java.awt.Color(255, 255, 255));
+        btnkqhoc.setText("Quản lý");
+        btnkqhoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnkqhocActionPerformed(evt);
             }
         });
 
@@ -210,7 +218,7 @@ public class homesv extends javax.swing.JPanel {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnkqhoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
@@ -229,7 +237,7 @@ public class homesv extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(btnkqhoc)
                 .addGap(10, 10, 10))
         );
 
@@ -272,19 +280,31 @@ public class homesv extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btnxemmonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxemmonActionPerformed
+        mondadksv panel = new mondadksv(tk);
+        student.setContentPanel(panel);
+    }//GEN-LAST:event_btnxemmonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btnkqhocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkqhocActionPerformed
+        ketquahoctapsv panel = new ketquahoctapsv(tk);
+        student.setContentPanel(panel);
+    }//GEN-LAST:event_btnkqhocActionPerformed
+
+    private void btndkmonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndkmonActionPerformed
+        dangkymonsv panel = new dangkymonsv(tk);
+        student.setContentPanel(panel);
+    }//GEN-LAST:event_btndkmonActionPerformed
+
+    private void btnhocphiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhocphiActionPerformed
+        hocphisv panel = new hocphisv(tk);
+        student.setContentPanel(panel);
+    }//GEN-LAST:event_btnhocphiActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btndkmon;
+    private javax.swing.JButton btnhocphi;
+    private javax.swing.JButton btnkqhoc;
+    private javax.swing.JButton btnxemmon;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  * @author LNV
  */
 public class ketquahoctapsv extends javax.swing.JPanel {
-    
+
     private java.util.HashMap<String, String> hkMap = new java.util.HashMap<>(); // key = tên hk, value = mã hk
     private java.util.HashMap<String, String> hkMapReverse = new java.util.HashMap<>();  // key = mã hk, value = tên hk
     private TaiKhoan tk;
@@ -35,7 +35,7 @@ public class ketquahoctapsv extends javax.swing.JPanel {
         initComponents();
         loadhocky();
     }
-    
+
     public ketquahoctapsv(TaiKhoan tk) {
         initComponents();
         this.tk = tk;
@@ -66,6 +66,8 @@ public class ketquahoctapsv extends javax.swing.JPanel {
         btnxemdiem = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtsv = new javax.swing.JTextField();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         txttongtin.setEditable(false);
 
@@ -179,7 +181,7 @@ private void loadhocky() {
             URL url = new URL("http://localhost:8080/api/hocky");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
-            
+
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
             StringBuilder response = new StringBuilder();
             String inputLine;
@@ -187,54 +189,54 @@ private void loadhocky() {
                 response.append(inputLine);
             }
             in.close();
-            
+
             Gson gson = new Gson();
             HocKy[] list = gson.fromJson(response.toString(), HocKy[].class);
-            
+
             cbxhocky.removeAllItems();
             cbxhocky.addItem("---Chọn học kỳ---");
-            
+
             for (HocKy hk : list) {
                 cbxhocky.addItem(hk.getTenhk());
                 hkMap.put(hk.getTenhk(), hk.getMahk());
                 hkMapReverse.put(hk.getMahk(), hk.getTenhk());
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Lỗi khi nạp dữ liệu học kỳ!");
         }
     }
-    
+
     private void btnxemdiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxemdiemActionPerformed
         loadtb();
     }//GEN-LAST:event_btnxemdiemActionPerformed
-    
+
     public void loadtb() {
-        
+
         int hkIndex = cbxhocky.getSelectedIndex();
-        
+
         if (hkIndex <= 0) {
             System.out.println("Vui lòng chọn học kỳ hợp lệ.");
             return;
         }
         String masv = tk.getUsername();
         String mahk = hkMap.get(cbxhocky.getSelectedItem().toString());
-        
+
         try {
-            
+
             String apiUrl = "http://localhost:8080/api/diem/sinhvien?masv=" + URLEncoder.encode(masv, "UTF-8")
                     + "&mahk=" + URLEncoder.encode(mahk, "UTF-8");
-            
+
             URL url = new URL(apiUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
-            
+
             if (conn.getResponseCode() != 200) {
                 throw new RuntimeException("HTTP error: " + conn.getResponseCode());
             }
-            
+
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
             StringBuilder json = new StringBuilder();
             String line;
@@ -242,7 +244,7 @@ private void loadhocky() {
                 json.append(line);
             }
             conn.disconnect();
-            
+
             Gson gson = new Gson();
             DiemSinhVienDTO[] diemList = gson.fromJson(json.toString(), DiemSinhVienDTO[].class);
 
@@ -251,21 +253,21 @@ private void loadhocky() {
                     new String[]{"Mã môn", "Tên môn", "SỐ TC", "Điểm", "Điểm chữ", "Trạng thái"}, 0
             );
             model.setRowCount(0);
-            
+
             double tongDiem = 0;
             double tongDiemHe4 = 0;
             int tongTinChi = 0;
-            
+
             for (DiemSinhVienDTO d : diemList) {
                 double diem = d.getDiem();
                 int tinchi = d.getSotinchi();
                 tongDiem += diem * tinchi;
                 tongDiemHe4 += chuyenDiemHe4(diem) * tinchi;
                 tongTinChi += tinchi;
-                
+
                 String diemChu;
                 String trangThai;
-                
+
                 if (diem >= 8.5) {
                     diemChu = "A";
                     trangThai = "Đạt";
@@ -288,7 +290,7 @@ private void loadhocky() {
             }
             double gpaHe10 = tongTinChi > 0 ? tongDiem / tongTinChi : 0;
             double gpaHe4 = tongTinChi > 0 ? tongDiemHe4 / tongTinChi : 0;
-            
+
             jTable1.setModel(model);
             txtdiemhe10.setText(String.format("%.2f", gpaHe10));
             txtdiemhe4.setText(String.format("%.2f", gpaHe4));
@@ -298,7 +300,7 @@ private void loadhocky() {
             JOptionPane.showMessageDialog(null, "Lỗi khi tải dữ liệu điểm!");
         }
     }
-    
+
     private double chuyenDiemHe4(double diem) {
         if (diem >= 8.5) {
             return 4.0;

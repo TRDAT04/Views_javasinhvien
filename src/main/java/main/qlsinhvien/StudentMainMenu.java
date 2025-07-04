@@ -11,6 +11,7 @@ import Views_sv.dangkymonsv;
 import Views_sv.diemsv;
 import Views_sv.hocphisv;
 import Views_sv.homesv;
+import Views_sv.hososv;
 import Views_sv.ketquahoctapsv;
 import Views_sv.mondadksv;
 import java.awt.BorderLayout;
@@ -24,7 +25,7 @@ import javax.swing.JScrollPane;
  * @author LNV
  */
 public class StudentMainMenu extends javax.swing.JFrame {
-    
+
     private TaiKhoan taiKhoan;
 
     /**
@@ -34,19 +35,19 @@ public class StudentMainMenu extends javax.swing.JFrame {
         initComponents();
         this.taiKhoan = taiKhoan;
         this.setResizable(false);
-        homesv panel = new homesv(taiKhoan);
+        homesv panel = new homesv(taiKhoan, this);
         setContentPanel(panel);
-        
+
     }
-    
+
     public StudentMainMenu() {
         initComponents();
     }
-    
+
     public void setContentPanel(JPanel panel) {
         contentpanel.removeAll();
         contentpanel.setLayout(new BorderLayout());
-        
+
         JScrollPane scrollPane = new JScrollPane(panel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -77,6 +78,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         btnxemdiem = new javax.swing.JButton();
         btnhocphi = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         FooterPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         contentpanel = new javax.swing.JPanel();
@@ -144,38 +146,75 @@ public class StudentMainMenu extends javax.swing.JFrame {
         NavigationPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createEmptyBorder(10, 10, 20, 10)));
         NavigationPanel.setPreferredSize(new java.awt.Dimension(130, 271));
 
+        btndkmon.setForeground(new java.awt.Color(255, 255, 255));
         btndkmon.setText("Đăng kí môn");
+        btndkmon.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 17, 1, 1));
+        btndkmon.setContentAreaFilled(false);
+        btndkmon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btndkmon.setMargin(new java.awt.Insets(2, 24, 3, 14));
         btndkmon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btndkmonActionPerformed(evt);
             }
         });
 
+        btnmondadk.setForeground(new java.awt.Color(255, 255, 255));
         btnmondadk.setText("Môn học");
+        btnmondadk.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 17, 1, 1));
+        btnmondadk.setContentAreaFilled(false);
+        btnmondadk.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnmondadk.setMargin(new java.awt.Insets(2, 24, 3, 14));
         btnmondadk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnmondadkActionPerformed(evt);
             }
         });
 
+        btnxemdiem.setForeground(new java.awt.Color(255, 255, 255));
         btnxemdiem.setText("Xem ĐIểm");
+        btnxemdiem.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 17, 1, 1));
+        btnxemdiem.setContentAreaFilled(false);
+        btnxemdiem.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnxemdiem.setMargin(new java.awt.Insets(2, 24, 3, 14));
         btnxemdiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnxemdiemActionPerformed(evt);
             }
         });
 
+        btnhocphi.setForeground(new java.awt.Color(255, 255, 255));
         btnhocphi.setText("Học Phí");
+        btnhocphi.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 17, 1, 1));
+        btnhocphi.setContentAreaFilled(false);
+        btnhocphi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnhocphi.setMargin(new java.awt.Insets(2, 24, 3, 14));
         btnhocphi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnhocphiActionPerformed(evt);
             }
         });
 
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Kết quả học");
+        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 17, 1, 1));
+        jButton1.setContentAreaFilled(false);
+        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton1.setMargin(new java.awt.Insets(2, 24, 3, 14));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Hồ sơ");
+        jButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 17, 1, 1));
+        jButton2.setContentAreaFilled(false);
+        jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton2.setMargin(new java.awt.Insets(2, 24, 3, 14));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -183,17 +222,21 @@ public class StudentMainMenu extends javax.swing.JFrame {
         NavigationPanel.setLayout(NavigationPanelLayout);
         NavigationPanelLayout.setHorizontalGroup(
             NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btndkmon, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-            .addComponent(btnmondadk, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(btnxemdiem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnhocphi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btndkmon, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnmondadk, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnxemdiem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnhocphi, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        NavigationPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btndkmon, btnhocphi, btnmondadk, btnxemdiem, jButton1, jButton2});
+
         NavigationPanelLayout.setVerticalGroup(
             NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NavigationPanelLayout.createSequentialGroup()
                 .addComponent(btndkmon, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnmondadk, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnxemdiem, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -201,8 +244,12 @@ public class StudentMainMenu extends javax.swing.JFrame {
                 .addComponent(btnhocphi, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        NavigationPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btndkmon, btnhocphi, btnmondadk, btnxemdiem, jButton1, jButton2});
 
         getContentPane().add(NavigationPanel, java.awt.BorderLayout.LINE_START);
 
@@ -253,10 +300,10 @@ public class StudentMainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnhomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhomeActionPerformed
-        homesv panel = new homesv(taiKhoan);
+        homesv panel = new homesv(taiKhoan, this);
         setContentPanel(panel);
     }//GEN-LAST:event_btnhomeActionPerformed
-    
+
     private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
         int result = JOptionPane.showConfirmDialog(
                 this,
@@ -265,7 +312,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE
         );
-        
+
         if (result == JOptionPane.YES_OPTION) {
             // Mở lại form Login
             Login loginForm = new Login();
@@ -277,33 +324,37 @@ public class StudentMainMenu extends javax.swing.JFrame {
             this.dispose(); // hoặc ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
         }
     }//GEN-LAST:event_btnlogoutActionPerformed
-    
+
     private void btndkmonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndkmonActionPerformed
         dangkymonsv panel = new dangkymonsv(taiKhoan);
-        
         setContentPanel(panel);
-        
+
     }//GEN-LAST:event_btndkmonActionPerformed
-    
+
     private void btnmondadkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmondadkActionPerformed
         mondadksv panel = new mondadksv(taiKhoan);
         setContentPanel(panel);
     }//GEN-LAST:event_btnmondadkActionPerformed
-    
+
     private void btnxemdiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxemdiemActionPerformed
         diemsv panel = new diemsv(taiKhoan);
         setContentPanel(panel);
     }//GEN-LAST:event_btnxemdiemActionPerformed
-    
+
     private void btnhocphiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhocphiActionPerformed
         hocphisv panel = new hocphisv(taiKhoan);
         setContentPanel(panel);
     }//GEN-LAST:event_btnhocphiActionPerformed
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ketquahoctapsv panel = new ketquahoctapsv(taiKhoan);
         setContentPanel(panel);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        hososv panel = new hososv(taiKhoan, this);
+        setContentPanel(panel);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -353,6 +404,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel contentpanel;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables

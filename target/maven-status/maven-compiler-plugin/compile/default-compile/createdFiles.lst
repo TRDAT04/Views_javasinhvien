@@ -5,6 +5,7 @@ Views\HocKyView$6.class
 Views\MonView$7.class
 service\AuthService.class
 main\qlsinhvien\AdminMainMenu$2.class
+Views_sv\homesv$4.class
 Views_sv\mondadksv$2.class
 Models\HocKy.class
 Views_sv\dangkymonsv.class
@@ -14,6 +15,7 @@ main\qlsinhvien\StudentMainMenu.class
 main\qlsinhvien\AdminMainMenu$13.class
 Views\DangKyView.class
 Views\sinhvien.class
+Views\LopView$8.class
 Views_sv\homesv$1.class
 Models\TaiKhoan.class
 DTO\DiemRequestDTO.class
@@ -32,6 +34,7 @@ Views\sinhvien$5.class
 main\qlsinhvien\StudentMainMenu$5.class
 Views\MonView$2.class
 Views\sinhvien$2.class
+Views_sv\hososv.class
 Views\TaikhoanView$2.class
 main\qlsinhvien\StudentMainMenu$8.class
 Views\MonView$5.class
@@ -40,6 +43,7 @@ Views_sv\ketquahoctapsv$1.class
 Controllers\LoginController.class
 Views\DanhSachDangKyView$2.class
 Views\HocPhiView$1.class
+Views_sv\doimksv.class
 Views\NhapDiemView$1.class
 Views\HocPhiView$2.class
 main\qlsinhvien\StudentMainMenu$1.class
@@ -57,14 +61,18 @@ main\qlsinhvien\StudentMainMenu$7.class
 Views\MonView$4.class
 Views\sinhvien$4.class
 Views\MonView.class
+Views_sv\hososv$1.class
 Views\NhapDiemView$2.class
 Views\HocKyView$3.class
 Views\TaikhoanView$3.class
 Views\Ketquahoctap$1.class
 Views\LopView$4.class
+DTO\ThongKeMonHocDTO.class
 main\qlsinhvien\StudentMainMenu$3.class
 Views\Home.class
 main\qlsinhvien\AdminMainMenu$9.class
+Views\ThongKeVIew.class
+Views_sv\doimksv$1.class
 Views_sv\hocphisv$1.class
 Views\XemDiemView.class
 Views\TaikhoanView$4.class
@@ -82,6 +90,7 @@ Models\Monhoc.class
 Views\HocKyView$2.class
 Views\sinhvien$1.class
 Views_sv\mondadksv.class
+Views\ThongKeVIew$2.class
 Models\Lop.class
 Views\MonView$6.class
 Views\TaikhoanView$7.class
@@ -103,6 +112,7 @@ main\qlsinhvien\AdminMainMenu$12.class
 Views\SignUp$1.class
 Views\HocKyView$1.class
 Views\HocPhiView$5.class
+Views\ThongKeVIew$1.class
 DTO\DiemResponseDTO.class
 Views\DangKyView$1.class
 Views_sv\dangkymonsv$2.class
@@ -118,9 +128,14 @@ main\qlsinhvien\AdminMainMenu$7.class
 Views_sv\diemsv.class
 Views\MonView$1.class
 Views\SignUp.class
+main\qlsinhvien\StudentMainMenu$9.class
+Views_sv\doimksv$2.class
 Views\DangKyView$2.class
+Views\HocKyView$7.class
 Views\HocPhiView$4.class
 main\qlsinhvien\StudentMainMenu$4.class
+Views_sv\homesv$3.class
+main\qlsinhvien\AdminMainMenu$14.class
 Views_sv\hocphisv.class
 Views\LopView$1.class
 Views\LopView$7.class
@@ -132,3 +147,4 @@ Views\TaikhoanView$6.class
 main\qlsinhvien\AdminMainMenu$8.class
 Views\Home$2.class
 Views\sinhvien$7.class
+Views\XemDiemView$3.class

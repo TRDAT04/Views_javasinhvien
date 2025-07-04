@@ -17,8 +17,10 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import main.qlsinhvien.ExcelExporter;
 
 /**
  *
@@ -324,19 +326,57 @@ public class MonView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtsotinchiActionPerformed
 
-    private void btnluuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnluuActionPerformed
-        String mamon = txtmamon.getText();
-        String tenmon = txttenmon.getText();
-        int sotinchi = Integer.parseInt(txtsotinchi.getText());  // ép kiểu
-        double giatin = Double.parseDouble(txtgiatin.getText()); // ép kiểu
+    private Monhoc validateAndGetMonhoc() {
+        String mamon = txtmamon.getText().trim();
+        String tenmon = txttenmon.getText().trim();
+        String sotinchiStr = txtsotinchi.getText().trim();
+        String giatinStr = txtgiatin.getText().trim();
 
-        Monhoc mon = new Monhoc(mamon, tenmon, sotinchi, giatin);
+        if (mamon.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã môn!");
+            return null;
+        }
+
+        if (tenmon.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên môn!");
+            return null;
+        }
+
+        int sotinchi;
+        try {
+            sotinchi = Integer.parseInt(sotinchiStr);
+            if (sotinchi <= 0) {
+                JOptionPane.showMessageDialog(this, "Số tín chỉ phải lớn hơn 0!");
+                return null;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Số tín chỉ phải là số nguyên!");
+            return null;
+        }
+
+        double giatin;
+        try {
+            giatin = Double.parseDouble(giatinStr);
+            if (giatin <= 0) {
+                JOptionPane.showMessageDialog(this, "Giá tín chỉ phải lớn hơn 0!");
+                return null;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Giá tín chỉ phải là số!");
+            return null;
+        }
+
+        return new Monhoc(mamon, tenmon, sotinchi, giatin);
+    }
+
+    private void btnluuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnluuActionPerformed
+        Monhoc mon = validateAndGetMonhoc();
+        if (mon == null) {
+            return;
+        }
         Gson gson = new Gson();
         String jsonInputString = gson.toJson(mon);
-        //        if (isExists(mamon)) {
-        //            JOptionPane.showMessageDialog(this, "Mã lớp đã tồn tại. Vui lòng nhập mã khác.");
-        //            return;
-        //        }
+
         try {
             URL url = new URL("http://localhost:8080/api/mon");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -354,7 +394,15 @@ public class MonView extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công");
                 loadtb();
             } else {
-                JOptionPane.showMessageDialog(this, "Thêm mới thất bại");
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getErrorStream(), "utf-8"))) {
+                    StringBuilder response = new StringBuilder();
+                    String responseLine;
+                    while ((responseLine = br.readLine()) != null) {
+                        response.append(responseLine.trim());
+                    }
+
+                    JOptionPane.showMessageDialog(this, "Thêm mới thất bại: " + response.toString());
+                }
             }
 
         } catch (Exception e) {
@@ -446,7 +494,23 @@ public class MonView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnxoaActionPerformed
 
     private void btnxuatexxcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxuatexxcelActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Lưu file Excel");
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            String path = fileChooser.getSelectedFile().getAbsolutePath();
+            // Nếu chưa có đuôi .xlsx thì thêm vào
+            if (!path.toLowerCase().endsWith(".xlsx")) {
+                path += ".xlsx";
+            }
+            try {
+                ExcelExporter.exportTable(jTable1, path);
+                JOptionPane.showMessageDialog(this, "Xuất file Excel thành công!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: " + e.getMessage());
+            }
+        }
     }//GEN-LAST:event_btnxuatexxcelActionPerformed
 
     private void btntimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimkiemActionPerformed

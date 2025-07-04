@@ -16,9 +16,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import javax.swing.JFileChooser;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import main.qlsinhvien.ExcelExporter;
 
 /**
  *
@@ -141,6 +143,11 @@ public class HocKyView extends javax.swing.JPanel {
         });
 
         btnxuatexxcel.setText("Xuất Excel");
+        btnxuatexxcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxuatexxcelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -286,14 +293,21 @@ public class HocKyView extends javax.swing.JPanel {
     private void btnluuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnluuActionPerformed
         String mahk = txtmahocky.getText();
         String tenhk = txttenhocky.getText();
+        if (mahk.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập Mã học kỳ!");
+            txtmahocky.requestFocus();
+            return;
+        }
 
+        if (tenhk.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập Tên học kỳ!");
+            txttenhocky.requestFocus();
+            return;
+        }
         HocKy hk = new HocKy(mahk, tenhk);
         Gson gson = new Gson();
         String jsonInputString = gson.toJson(hk);
-        //        if (isExists(malop)) {
-        //            JOptionPane.showMessageDialog(this, "Mã lớp đã tồn tại. Vui lòng nhập mã khác.");
-        //            return;
-        //        }
+
         try {
             URL url = new URL("http://localhost:8080/api/hocky");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -311,7 +325,15 @@ public class HocKyView extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công");
                 loadtb();
             } else {
-                JOptionPane.showMessageDialog(this, "Thêm mới thất bại");
+                BufferedReader br = new BufferedReader(new InputStreamReader(con.getErrorStream(), "utf-8"));
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+
+                JOptionPane.showMessageDialog(this, response.toString());
+
             }
 
         } catch (Exception e) {
@@ -439,6 +461,26 @@ public class HocKyView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Lỗi khi tìm kiếm sinh viên: " + e.getMessage());
         }
     }//GEN-LAST:event_btntimkiemActionPerformed
+
+    private void btnxuatexxcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxuatexxcelActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Lưu file Excel");
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            String path = fileChooser.getSelectedFile().getAbsolutePath();
+            // Nếu chưa có đuôi .xlsx thì thêm vào
+            if (!path.toLowerCase().endsWith(".xlsx")) {
+                path += ".xlsx";
+            }
+            try {
+                ExcelExporter.exportTable(jTable1, path);
+                JOptionPane.showMessageDialog(this, "Xuất file Excel thành công!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: " + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnxuatexxcelActionPerformed
 
     private void loadtb() {
         try {

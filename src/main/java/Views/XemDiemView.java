@@ -27,6 +27,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.lang.reflect.Type;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import main.qlsinhvien.ExcelExporter;
 
 /**
  *
@@ -72,6 +74,7 @@ public class XemDiemView extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         cbxmonhoc = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
+        btnxuatexcel = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -157,6 +160,13 @@ public class XemDiemView extends javax.swing.JPanel {
                 .addGap(5, 5, 5))
         );
 
+        btnxuatexcel.setText("Xuất Excel");
+        btnxuatexcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxuatexcelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -172,7 +182,9 @@ public class XemDiemView extends javax.swing.JPanel {
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
-                                .addComponent(btnsavediem))))
+                                .addComponent(btnsavediem)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnxuatexcel))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addComponent(jLabel1)))
@@ -188,7 +200,9 @@ public class XemDiemView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnsavediem)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnsavediem)
+                    .addComponent(btnxuatexcel))
                 .addContainerGap(87, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -325,6 +339,26 @@ public class XemDiemView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnsavediemActionPerformed
 
+    private void btnxuatexcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxuatexcelActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Lưu file Excel");
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            String path = fileChooser.getSelectedFile().getAbsolutePath();
+            // Nếu chưa có đuôi .xlsx thì thêm vào
+            if (!path.toLowerCase().endsWith(".xlsx")) {
+                path += ".xlsx";
+            }
+            try {
+                ExcelExporter.exportTable(jTable1, path);
+                JOptionPane.showMessageDialog(this, "Xuất file Excel thành công!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: " + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnxuatexcelActionPerformed
+
     public void loadtb() {
         int monIndex = cbxmonhoc.getSelectedIndex();
         int hkIndex = cbxhocky.getSelectedIndex();
@@ -391,6 +425,7 @@ public class XemDiemView extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnsavediem;
+    private javax.swing.JButton btnxuatexcel;
     private javax.swing.JComboBox<String> cbxhocky;
     private javax.swing.JComboBox<String> cbxmonhoc;
     private javax.swing.JLabel jLabel1;

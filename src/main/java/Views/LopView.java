@@ -18,8 +18,10 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import main.qlsinhvien.ExcelExporter;
 
 /**
  *
@@ -113,6 +115,11 @@ public class LopView extends javax.swing.JPanel {
         });
 
         btnxuatexxcel.setText("Xuất Excel");
+        btnxuatexxcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxuatexxcelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -259,17 +266,15 @@ public class LopView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(88, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -294,42 +299,37 @@ public class LopView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtkhoaActionPerformed
 
-    private boolean isExists(String malop) {
-        try {
+    private Lop validateAndGetLop() {
+        String malop = txtmalop.getText().trim();
+        String tenlop = txttenlop.getText().trim();
+        String khoa = txtkhoa.getText().trim();
 
-            URL url = new URL("http://localhost:8080/api/lop/check-exists/" + malop);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setConnectTimeout(5000);
-            conn.setReadTimeout(5000);
-
-            int responseCode = conn.getResponseCode();
-            if (responseCode == 200) {
-                try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-                    String inputLine = in.readLine();
-                    // Giả sử API trả về "true" hoặc "false" dạng text/plain
-                    return Boolean.parseBoolean(inputLine);
-                }
-            } else {
-                System.err.println("Lỗi khi gọi API: HTTP " + responseCode);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (malop.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã lớp!");
+            return null;
         }
 
-        return false;
+        if (tenlop.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên lớp!");
+            return null;
+        }
+
+        if (khoa.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập khóa!");
+            return null;
+        }
+
+        return new Lop(malop, tenlop, khoa);
     }
+
     private void btnluuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnluuActionPerformed
-        String malop = txtmalop.getText();
-        String tenlop = txttenlop.getText();
-        String khoa = txtkhoa.getText();
-        Lop lop = new Lop(malop, tenlop, khoa);
-        Gson gson = new Gson();
-        String jsonInputString = gson.toJson(lop);
-        if (isExists(malop)) {
-            JOptionPane.showMessageDialog(this, "Mã lớp đã tồn tại. Vui lòng nhập mã khác.");
+        Lop lop = validateAndGetLop();
+        if (lop == null) {
             return;
         }
+        Gson gson = new Gson();
+        String jsonInputString = gson.toJson(lop);
+
         try {
             URL url = new URL("http://localhost:8080/api/lop");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -347,7 +347,15 @@ public class LopView extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công");
                 loadtb();
             } else {
-                JOptionPane.showMessageDialog(this, "Thêm mới thất bại");
+                try (BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(con.getErrorStream(), "utf-8"))) {
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line.trim());
+                    }
+                    JOptionPane.showMessageDialog(this, "Lỗi: " + response.toString());
+                }
             }
 
         } catch (Exception e) {
@@ -486,6 +494,26 @@ public class LopView extends javax.swing.JPanel {
             txtkhoa.setText(khoa);
         }
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void btnxuatexxcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxuatexxcelActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Lưu file Excel");
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            String path = fileChooser.getSelectedFile().getAbsolutePath();
+            // Nếu chưa có đuôi .xlsx thì thêm vào
+            if (!path.toLowerCase().endsWith(".xlsx")) {
+                path += ".xlsx";
+            }
+            try {
+                ExcelExporter.exportTable(jTable1, path);
+                JOptionPane.showMessageDialog(this, "Xuất file Excel thành công!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: " + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnxuatexxcelActionPerformed
 
     private void loadtb() {
         try {
