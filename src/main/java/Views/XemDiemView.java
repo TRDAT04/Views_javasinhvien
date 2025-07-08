@@ -48,9 +48,9 @@ public class XemDiemView extends javax.swing.JPanel {
     public XemDiemView() {
         initComponents();
         loadhocky();
-        loadmonhoc();
+
         cbxmonhoc.addActionListener(e -> loadtb());
-        cbxhocky.addActionListener(e -> loadtb());
+        cbxhocky.addActionListener(e -> loadmonhoc());
 
     }
 
@@ -241,7 +241,9 @@ public class XemDiemView extends javax.swing.JPanel {
 
     private void loadmonhoc() {
         try {
-            URL url = new URL("http://localhost:8080/api/mon");
+            String selectedText = cbxhocky.getSelectedItem().toString();
+            String selectedhk = hkMap.get(selectedText);
+            URL url = new URL("http://localhost:8080/api/mon/theohocky/" + URLEncoder.encode(selectedhk, "UTF-8"));
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
 
@@ -291,6 +293,12 @@ public class XemDiemView extends javax.swing.JPanel {
             double diem;
             try {
                 diem = Double.parseDouble(diemObj.toString());
+                if (diem < 0 || diem > 10) {
+                    JOptionPane.showMessageDialog(this, "Điểm không hợp lệ ở dòng " + (i + 1) + ". Vui lòng nhập từ 0 đến 10.");
+                    hasError = true;
+                    continue;
+                }
+
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Điểm không hợp lệ ở dòng " + (i + 1));
                 hasError = true;

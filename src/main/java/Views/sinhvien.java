@@ -51,6 +51,8 @@ public class sinhvien extends javax.swing.JPanel {
         btnLuu.setEnabled(false);
         btnsua.setEnabled(false);
         btnxoa.setEnabled(false);
+        cbxlop.addActionListener(e -> loadsinhvientheolop());
+
     }
 
     /**
@@ -91,6 +93,8 @@ public class sinhvien extends javax.swing.JPanel {
         btnsua = new javax.swing.JButton();
         btnxoa = new javax.swing.JButton();
         btnxuatexcel = new javax.swing.JButton();
+        cbxlop = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -320,32 +324,39 @@ public class sinhvien extends javax.swing.JPanel {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
+        jLabel11.setText("Lớp:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtfindmasv, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtfindtensv, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(btntimkiem))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btntimkiem)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jLabel9)))
                 .addContainerGap(23, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtfindmasv, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtfindtensv, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxlop, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(144, 144, 144))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,7 +369,9 @@ public class sinhvien extends javax.swing.JPanel {
                     .addComponent(txtfindmasv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(txtfindtensv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btntimkiem))
+                    .addComponent(btntimkiem)
+                    .addComponent(cbxlop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -387,12 +400,13 @@ public class sinhvien extends javax.swing.JPanel {
 
             cbclass.removeAllItems();
             cbclass.addItem("---Chọn lớp---");
-
+            cbxlop.addItem("---Chọn lớp---");
             lopMap.clear();
             lopMapReverse.clear();
 
             for (Lop lop : lopList) {
                 cbclass.addItem(lop.getTenlop());
+                cbxlop.addItem(lop.getTenlop());
                 lopMap.put(lop.getTenlop(), lop.getMalop());
                 lopMapReverse.put(lop.getMalop(), lop.getTenlop());
             }
@@ -441,12 +455,18 @@ public class sinhvien extends javax.swing.JPanel {
             // Đổ dữ liệu vào bảng
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
+            SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdfOutput = new SimpleDateFormat("dd/MM/yyyy");
             for (SinhVien sv : sinhViens) {
-                String ngaySinhFormatted = sv.getNgaysinh() != null ? sdf.format(sv.getNgaysinh()) : "";
                 String tenlop = lopMapReverse.getOrDefault(sv.getMalop(), sv.getMalop());
-
+                String ngaySinhFormatted = "";
+                try {
+                    Date parsed = sdfInput.parse(sv.getNgaysinh());
+                    ngaySinhFormatted = sdfOutput.format(parsed);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 model.addRow(new Object[]{
                     sv.getMasv(),
                     sv.getHoten(),
@@ -598,7 +618,6 @@ public class sinhvien extends javax.swing.JPanel {
             if (responseCode == 200) {
                 try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
                     String inputLine = in.readLine();
-                    // Giả sử API trả về "true" hoặc "false" dạng text/plain
                     return Boolean.parseBoolean(inputLine);
                 }
             } else {
@@ -631,7 +650,7 @@ public class sinhvien extends javax.swing.JPanel {
         Gson gson = new Gson();
         String jsonInputString = gson.toJson(sv);
         try {
-            URL url = new URL("http://localhost:8080/api/sinhvien");  // Địa chỉ API Web Service bạn tự cấu hình
+            URL url = new URL("http://localhost:8080/api/sinhvien");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json; utf-8");
@@ -679,7 +698,8 @@ public class sinhvien extends javax.swing.JPanel {
             }
             in.close();
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdfOutput = new SimpleDateFormat("dd/MM/yyyy");
 
             // Chuyển JSON sang mảng sinh viên
             Gson gson = new Gson();
@@ -690,8 +710,8 @@ public class sinhvien extends javax.swing.JPanel {
             for (SinhVien sv : dsSinhVien) {
                 String ngaySinhFormatted = "";
                 try {
-                    Date parsed = new SimpleDateFormat("yyyy-MM-dd").parse(sv.getNgaysinh());
-                    ngaySinhFormatted = sdf.format(parsed);
+                    Date parsed = sdfInput.parse(sv.getNgaysinh());
+                    ngaySinhFormatted = sdfOutput.format(parsed);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -816,6 +836,62 @@ public class sinhvien extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnxuatexcelActionPerformed
 
+    private void loadsinhvientheolop() {
+        String selectedText = cbxlop.getSelectedItem().toString();
+        String selectedLop = lopMap.get(selectedText);
+        if (selectedLop == null) {
+
+            loadtb();
+        } else {
+            try {
+                URL url = new URL("http://localhost:8080/api/sinhvien/lop/" + URLEncoder.encode(selectedLop, "UTF-8"));
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    response.append(line);
+                }
+                br.close();
+
+                SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat sdfOutput = new SimpleDateFormat("dd/MM/yyyy");
+                // Parse JSON thành danh sách sinh viên
+                Gson gson = new Gson();
+                SinhVien[] danhSach = gson.fromJson(response.toString(), SinhVien[].class);
+
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.setRowCount(0);
+                for (SinhVien sv : danhSach) {
+                    String ngaySinhFormatted = "";
+                    try {
+                        Date parsed = sdfInput.parse(sv.getNgaysinh());
+                        ngaySinhFormatted = sdfOutput.format(parsed);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    String tenlop = lopMapReverse.get(sv.getMalop());
+                    model.addRow(new Object[]{
+                        sv.getMasv(),
+                        sv.getHoten(),
+                        ngaySinhFormatted,
+                        sv.getGioitinh(),
+                        sv.getSdt(),
+                        sv.getEmail(),
+                        tenlop
+                    });
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Lỗi tải sinh viên theo lớp");
+            }
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnsua;
@@ -824,10 +900,12 @@ public class sinhvien extends javax.swing.JPanel {
     private javax.swing.JButton btnxuatexcel;
     private javax.swing.JComboBox<String> cbclass;
     private javax.swing.JComboBox<String> cbgoitinh;
+    private javax.swing.JComboBox<String> cbxlop;
     private com.toedter.calendar.JDateChooser dateNS;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

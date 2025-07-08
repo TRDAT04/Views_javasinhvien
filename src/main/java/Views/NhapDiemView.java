@@ -48,9 +48,9 @@ public class NhapDiemView extends javax.swing.JPanel {
     public NhapDiemView() {
         initComponents();
         loadhocky();
-        loadmonhoc();
+
         cbxmonhoc.addActionListener(e -> loadSinhVienChuaCoDiem());
-        cbxhocky.addActionListener(e -> loadSinhVienChuaCoDiem());
+        cbxhocky.addActionListener(e -> loadmonhoc());
     }
 
     /**
@@ -223,7 +223,9 @@ public class NhapDiemView extends javax.swing.JPanel {
 
     private void loadmonhoc() {
         try {
-            URL url = new URL("http://localhost:8080/api/mon");
+            String selectedText = cbxhocky.getSelectedItem().toString();
+            String selectedhk = hkMap.get(selectedText);
+            URL url = new URL("http://localhost:8080/api/mon/theohocky/" + URLEncoder.encode(selectedhk, "UTF-8"));
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
 
@@ -279,6 +281,12 @@ public class NhapDiemView extends javax.swing.JPanel {
 
             try {
                 double diem = Double.parseDouble(diemObj.toString());
+                if (diem < 0 || diem > 10) {
+                    JOptionPane.showMessageDialog(this, "Điểm không hợp lệ ở dòng " + (i + 1) + ". Vui lòng nhập từ 0 đến 10.");
+                    hasError = true;
+                    continue;
+                }
+
                 DiemRequestDTO dto = new DiemRequestDTO(masv, mamon, mahk, diem);
 
                 HttpURLConnection conn = (HttpURLConnection) new URL("http://localhost:8080/api/diem").openConnection();

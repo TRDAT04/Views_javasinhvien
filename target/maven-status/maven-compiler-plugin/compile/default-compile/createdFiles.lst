@@ -15,7 +15,6 @@ main\qlsinhvien\StudentMainMenu.class
 main\qlsinhvien\AdminMainMenu$13.class
 Views\DangKyView.class
 Views\sinhvien.class
-Views\LopView$8.class
 Views_sv\homesv$1.class
 Models\TaiKhoan.class
 DTO\DiemRequestDTO.class
@@ -24,6 +23,7 @@ Views\XemDiemView$2.class
 Views\Home$3.class
 Views\LopView$3.class
 Views\TaikhoanView$8.class
+Views\DanhSachDangKyView$3.class
 main\qlsinhvien\StudentMainMenu$2.class
 Views\TaikhoanView$5.class
 Views_sv\hocphisv$2.class

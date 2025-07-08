@@ -29,12 +29,34 @@ import main.qlsinhvien.ExcelExporter;
  */
 public class LopView extends javax.swing.JPanel {
 
+    private java.util.HashMap<String, String> khoaMap = new java.util.HashMap<>(); // key = tên hk, value = mã hk
+    private java.util.HashMap<String, String> khoaMapReverse = new java.util.HashMap<>();  // key = mã hk, value = tên hk
+
     /**
      * Creates new form lopView
      */
     public LopView() {
         initComponents();
+        khoaMap.put("Công nghệ thông tin", "CNTT");
+        khoaMap.put("Kinh tế", "KTE");
+        khoaMap.put("Ngoại ngữ", "NN");
+        khoaMap.put("Kỹ thuật", "KT");
+
+        khoaMapReverse.put("CNTT", "Công nghệ thông tin");
+        khoaMapReverse.put("KTE", "Kinh tế");
+        khoaMapReverse.put("NN", "Ngoại ngữ");
+        khoaMapReverse.put("KT", "Kỹ thuật");
+
+        cbxkhoa.addItem("---Chọn khoa---");
+        for (String tenKhoa : khoaMap.keySet()) {
+            cbxkhoa.addItem(tenKhoa);
+        }
         loadtb();
+        txtmalop.setEnabled(false);
+        txttenlop.setEnabled(false);
+        btnluu.setEnabled(false);
+        btncapnhat.setEnabled(false);
+        btnxoa.setEnabled(false);
     }
 
     /**
@@ -52,12 +74,12 @@ public class LopView extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         txttenlop = new javax.swing.JTextField();
         txtmalop = new javax.swing.JTextField();
-        txtkhoa = new javax.swing.JTextField();
         btnluu = new javax.swing.JButton();
         btnthem = new javax.swing.JButton();
         btncapnhat = new javax.swing.JButton();
         btnxoa = new javax.swing.JButton();
         btnxuatexxcel = new javax.swing.JButton();
+        cbxkhoa = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -79,12 +101,6 @@ public class LopView extends javax.swing.JPanel {
         jLabel3.setText("Tên lớp:");
 
         jLabel4.setText("Khoa:");
-
-        txtkhoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtkhoaActionPerformed(evt);
-            }
-        });
 
         btnluu.setText("Lưu");
         btnluu.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +152,7 @@ public class LopView extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtmalop, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                            .addComponent(txtkhoa))
+                            .addComponent(cbxkhoa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -164,9 +180,9 @@ public class LopView extends javax.swing.JPanel {
                     .addComponent(txttenlop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtkhoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(cbxkhoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnthem)
@@ -295,14 +311,10 @@ public class LopView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtkhoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtkhoaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtkhoaActionPerformed
-
     private Lop validateAndGetLop() {
         String malop = txtmalop.getText().trim();
         String tenlop = txttenlop.getText().trim();
-        String khoa = txtkhoa.getText().trim();
+        String khoa = khoaMap.get(cbxkhoa.getSelectedItem().toString());
 
         if (malop.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mã lớp!");
@@ -346,6 +358,7 @@ public class LopView extends javax.swing.JPanel {
             if (code == HttpURLConnection.HTTP_CREATED || code == HttpURLConnection.HTTP_OK) {
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công");
                 loadtb();
+                clear();
             } else {
                 try (BufferedReader reader = new BufferedReader(
                         new InputStreamReader(con.getErrorStream(), "utf-8"))) {
@@ -364,15 +377,18 @@ public class LopView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnluuActionPerformed
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
+        clear();
         txtmalop.setEnabled(true);
+        txttenlop.setEnabled(true);
+        btnluu.setEnabled(true);
     }//GEN-LAST:event_btnthemActionPerformed
 
     private void btncapnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncapnhatActionPerformed
         String malop = txtmalop.getText();
-        String tenlop = txttenlop.getText();
-        String khoa = txtkhoa.getText();
-
-        Lop lop = new Lop(malop, tenlop, khoa);
+        Lop lop = validateAndGetLop();
+        if (lop == null) {
+            return;
+        }
         Gson gson = new Gson();
         String jsonInputString = gson.toJson(lop);
 
@@ -392,6 +408,7 @@ public class LopView extends javax.swing.JPanel {
             if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 loadtb();
+                clear();
                 txtmalop.setEnabled(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Cập nhật thất bại. Mã lỗi: " + responseCode);
@@ -479,7 +496,15 @@ public class LopView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btntimkiemActionPerformed
 
+    private void clear() {
+        txtmalop.setText("");
+        txttenlop.setText("");
+        cbxkhoa.setSelectedIndex(0);
+    }
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        btncapnhat.setEnabled(true);
+        btnxoa.setEnabled(true);
+        btnluu.setEnabled(false);
         int selectedRow = jTable1.getSelectedRow();
         txtmalop.setEnabled(false);
         if (selectedRow >= 0) {
@@ -491,7 +516,7 @@ public class LopView extends javax.swing.JPanel {
             // Hiển thị lên các ô nhập liệu
             txtmalop.setText(malop);
             txttenlop.setText(tenlop);
-            txtkhoa.setText(khoa);
+            cbxkhoa.setSelectedItem(khoaMapReverse.get(khoa));
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -554,6 +579,7 @@ public class LopView extends javax.swing.JPanel {
     private javax.swing.JButton btntimkiem;
     private javax.swing.JButton btnxoa;
     private javax.swing.JButton btnxuatexxcel;
+    private javax.swing.JComboBox<String> cbxkhoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -567,7 +593,6 @@ public class LopView extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtfindmalop;
     private javax.swing.JTextField txtfindtenlop;
-    private javax.swing.JTextField txtkhoa;
     private javax.swing.JTextField txtmalop;
     private javax.swing.JTextField txttenlop;
     // End of variables declaration//GEN-END:variables

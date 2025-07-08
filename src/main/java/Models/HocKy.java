@@ -12,13 +12,17 @@ public class HocKy {
 
     private String mahk;
     private String tenhk;
+    private String thoigianBatdau;
+    private String thoigianKetthuc;
 
     public HocKy() {
     }
 
-    public HocKy(String mahk, String tenhk) {
+    public HocKy(String mahk, String tenhk, String thoigianBatdau, String thoigianKetthuc) {
         this.mahk = mahk;
         this.tenhk = tenhk;
+        this.thoigianBatdau = thoigianBatdau;
+        this.thoigianKetthuc = thoigianKetthuc;
     }
 
     public String getMahk() {
@@ -37,4 +41,19 @@ public class HocKy {
         this.tenhk = tenhk;
     }
 
+    public String getThoigianBatdau() {
+        return thoigianBatdau;
+    }
+
+    public void setThoigianBatdau(String thoigianBatdau) {
+        this.thoigianBatdau = thoigianBatdau;
+    }
+
+    public String getThoigianKetthuc() {
+        return thoigianKetthuc;
+    }
+
+    public void setThoigianKetthuc(String thoigianKetthuc) {
+        this.thoigianKetthuc = thoigianKetthuc;
+    }
 }

@@ -238,14 +238,17 @@ private List<DangKy> getMonHocDaChon() {
     }//GEN-LAST:event_btnlammoiActionPerformed
 
     private void reloadMonHocTheoSinhVienVaHK() {
-        if (tk == null) {
-            JOptionPane.showMessageDialog(this, "Không tìm thấy tài khoản sinh viên!");
+        String selectedHocKy = (String) cbxhocky.getSelectedItem();
+        String masv = tk.getUsername();
+        String mahk = hkMap.get(selectedHocKy);
+        if (cbxhocky.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn học kỳ trước khi đăng ký.");
             return;
         }
-        String masv = tk.getUsername();
-
         try {
-            URL url = new URL("http://localhost:8080/api/mon/chuadangky?masv=" + URLEncoder.encode(masv, "UTF-8"));
+            URL url = new URL("http://localhost:8080/api/mon/chuadangky?masv="
+                    + URLEncoder.encode(masv, "UTF-8")
+                    + "&mahk=" + URLEncoder.encode(mahk, "UTF-8"));
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
 

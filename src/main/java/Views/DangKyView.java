@@ -275,7 +275,8 @@ public class DangKyView extends javax.swing.JPanel {
         String masv = svSelection.split("-")[0].trim();
         String mahk = hkMap.get(hkSelection);
 
-        DanhSachDangKyView panel = new DanhSachDangKyView(masv, mahk);
+        String tensv = svMapReverse.get(masv);
+        DanhSachDangKyView panel = new DanhSachDangKyView(masv, mahk, mainMenu, tensv);
 
         mainMenu.setContentPanel(panel);
     }//GEN-LAST:event_btnmondadkActionPerformed
@@ -355,9 +356,11 @@ public class DangKyView extends javax.swing.JPanel {
         }
 
         String masv = selectedSinhVien.split(" - ")[0].trim();  // vì chuỗi dạng "SV001 - Nguyễn Văn A"
-
+        String mahk = hkMap.get(selectedHocKy);
         try {
-            URL url = new URL("http://localhost:8080/api/mon/chuadangky?masv=" + URLEncoder.encode(masv, "UTF-8"));
+            URL url = new URL("http://localhost:8080/api/mon/chuadangky?masv="
+                    + URLEncoder.encode(masv, "UTF-8")
+                    + "&mahk=" + URLEncoder.encode(mahk, "UTF-8"));
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
 

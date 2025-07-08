@@ -16,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 
 /**
@@ -152,17 +153,17 @@ public class mondadksv extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(162, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbxhocky, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(157, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(36, 36, 36)
-                        .addComponent(txtsv, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(36, 36, 36))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbxhocky, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtsv, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
                 .addGap(264, 264, 264))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,9 +175,9 @@ public class mondadksv extends javax.swing.JPanel {
                         .addComponent(btnhuydk)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 46, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,19 +259,19 @@ public class mondadksv extends javax.swing.JPanel {
     }
 
     private void btnhuydkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhuydkActionPerformed
+        String masv = tk.getUsername();
+        String mahk = hkMap.get(cbxhocky.getSelectedItem().toString());
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         boolean coMonBiChon = false;
         boolean coLoi = false;
-        String masv = tk.getUsername();
-        String mahk = hkMap.get(cbxhocky.getSelectedItem().toString());
+
         for (int i = 0; i < model.getRowCount(); i++) {
-            Boolean selected = (Boolean) model.getValueAt(i, 0); // Cột 0 là checkbox
+            Boolean selected = (Boolean) model.getValueAt(i, 0);
             if (Boolean.TRUE.equals(selected)) {
                 coMonBiChon = true;
-                String mamon = (String) model.getValueAt(i, 1); // Cột 1 là mã môn
+                String mamon = (String) model.getValueAt(i, 1);
 
                 try {
-                    // Mã hóa tham số để tránh lỗi URL
                     String apiUrl = String.format("http://localhost:8080/api/dangky?masv=%s&mamon=%s&mahk=%s",
                             URLEncoder.encode(masv, "UTF-8"),
                             URLEncoder.encode(mamon, "UTF-8"),
@@ -281,13 +282,25 @@ public class mondadksv extends javax.swing.JPanel {
 
                     int code = con.getResponseCode();
                     if (code != 200) {
+                        String message = new BufferedReader(new InputStreamReader(con.getErrorStream(), StandardCharsets.UTF_8))
+                                .lines().collect(Collectors.joining("\n"));
+
+                        if (message.toLowerCase().contains("quá hạn")) {
+                            JOptionPane.showMessageDialog(this,
+                                    "Không thể hủy môn " + mamon + ": đã quá hạn 7 ngày.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this,
+                                    "Lỗi khi hủy môn " + mamon + ": " + message, "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        }
+
                         coLoi = true;
-                        JOptionPane.showMessageDialog(this, "Xóa không thành công cho môn: " + mamon);
                     }
+
                 } catch (Exception e) {
                     coLoi = true;
+                    JOptionPane.showMessageDialog(this,
+                            "Lỗi khi hủy đăng ký môn " + mamon, "Lỗi", JOptionPane.ERROR_MESSAGE);
                     e.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Lỗi khi hủy đăng ký môn: " + mamon);
                 }
             }
         }

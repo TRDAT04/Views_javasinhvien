@@ -13,7 +13,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
+import main.qlsinhvien.AdminMainMenu;
 
 /**
  *
@@ -23,19 +26,19 @@ public class DanhSachDangKyView extends javax.swing.JPanel {
 
     private String masv;
     private String mahk;
+    private AdminMainMenu admin;
+    private String tensv;
 
     /**
      * Creates new form DanhSachDangKyView
      */
-    public DanhSachDangKyView() {
-        initComponents();
-    }
-
-    public DanhSachDangKyView(String masv, String mahk) {
+    public DanhSachDangKyView(String masv, String mahk, AdminMainMenu admin, String tensv) {
         this.masv = masv;
         this.mahk = mahk;
+        this.admin = admin;
+        this.tensv = tensv;
         initComponents();
-
+        txttensv.setText(tensv);
         loadData();
     }
 
@@ -110,6 +113,9 @@ public class DanhSachDangKyView extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         btnhuydk = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnback = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txttensv = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -155,6 +161,17 @@ public class DanhSachDangKyView extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Danh sách môn đã đăng ký");
 
+        btnback.setText("Quay lại");
+        btnback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbackActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Sinh viên:");
+
+        txttensv.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,26 +179,38 @@ public class DanhSachDangKyView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(btnhuydk))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(jLabel1)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addGap(118, 118, 118)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(txttensv, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(btnback)
+                                .addGap(34, 34, 34)
+                                .addComponent(btnhuydk)))))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(txttensv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnhuydk)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnhuydk)
+                    .addComponent(btnback))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -191,13 +220,12 @@ public class DanhSachDangKyView extends javax.swing.JPanel {
         boolean coLoi = false;
 
         for (int i = 0; i < model.getRowCount(); i++) {
-            Boolean selected = (Boolean) model.getValueAt(i, 0); // Cột 0 là checkbox
+            Boolean selected = (Boolean) model.getValueAt(i, 0);
             if (Boolean.TRUE.equals(selected)) {
                 coMonBiChon = true;
-                String mamon = (String) model.getValueAt(i, 1); // Cột 1 là mã môn
+                String mamon = (String) model.getValueAt(i, 1);
 
                 try {
-                    // Mã hóa tham số để tránh lỗi URL
                     String apiUrl = String.format("http://localhost:8080/api/dangky?masv=%s&mamon=%s&mahk=%s",
                             URLEncoder.encode(masv, "UTF-8"),
                             URLEncoder.encode(mamon, "UTF-8"),
@@ -208,13 +236,25 @@ public class DanhSachDangKyView extends javax.swing.JPanel {
 
                     int code = con.getResponseCode();
                     if (code != 200) {
+                        String message = new BufferedReader(new InputStreamReader(con.getErrorStream(), StandardCharsets.UTF_8))
+                                .lines().collect(Collectors.joining("\n"));
+
+                        if (message.toLowerCase().contains("quá hạn")) {
+                            JOptionPane.showMessageDialog(this,
+                                    "Không thể hủy môn " + mamon + ": đã quá hạn 7 ngày.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this,
+                                    "Lỗi khi hủy môn " + mamon + ": " + message, "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        }
+
                         coLoi = true;
-                        JOptionPane.showMessageDialog(this, "Xóa không thành công cho môn: " + mamon);
                     }
+
                 } catch (Exception e) {
                     coLoi = true;
+                    JOptionPane.showMessageDialog(this,
+                            "Lỗi khi hủy đăng ký môn " + mamon, "Lỗi", JOptionPane.ERROR_MESSAGE);
                     e.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Lỗi khi hủy đăng ký môn: " + mamon);
                 }
             }
         }
@@ -231,11 +271,18 @@ public class DanhSachDangKyView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnhuydkActionPerformed
 
+    private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
+        admin.setContentPanel(new DangKyView(admin));
+    }//GEN-LAST:event_btnbackActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnback;
     private javax.swing.JButton btnhuydk;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txttensv;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,15 +6,17 @@ public class Monhoc {
     private String tenmon;
     private int sotinchi;
     private double giaTinchi;
+    private String mahk;
 
     public Monhoc() {
     }
 
-    public Monhoc(String mamon, String tenmon, int sotinchi, double giaTinchi) {
+    public Monhoc(String mamon, String tenmon, int sotinchi, double giaTinchi, String mahk) {
         this.mamon = mamon;
         this.tenmon = tenmon;
         this.sotinchi = sotinchi;
         this.giaTinchi = giaTinchi;
+        this.mahk = mahk;
     }
 
     @Override
@@ -52,5 +54,13 @@ public class Monhoc {
 
     public void setGiaTinchi(double giaTinchi) {
         this.giaTinchi = giaTinchi;
+    }
+
+    public String getMahk() {
+        return mahk;
+    }
+
+    public void setMahk(String mahk) {
+        this.mahk = mahk;
     }
 }

@@ -16,6 +16,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JFileChooser;
 
 import javax.swing.JOptionPane;
@@ -61,6 +64,10 @@ public class HocKyView extends javax.swing.JPanel {
         btncapnhat = new javax.swing.JButton();
         btnxoa = new javax.swing.JButton();
         btnxuatexxcel = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        datebatdau = new com.toedter.calendar.JDateChooser();
+        dateketthuc = new com.toedter.calendar.JDateChooser();
+        jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -75,13 +82,13 @@ public class HocKyView extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Mã học kỳ", "Tên học kỳ"
+                "Mã học kỳ", "Tên học kỳ", "Bắt đầu", "Kết thúc"
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -149,21 +156,21 @@ public class HocKyView extends javax.swing.JPanel {
             }
         });
 
+        jLabel4.setText("Bắt đầu:");
+
+        datebatdau.setDateFormatString("dd/MM/yyyy");
+
+        dateketthuc.setDateFormatString("dd/MM/yyyy");
+
+        jLabel7.setText("Kết thúc");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtmahocky, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addGap(4, 4, 4)
-                        .addComponent(txttenhocky, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnthem)
                         .addGap(18, 18, 18)
@@ -173,7 +180,23 @@ public class HocKyView extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(btnxoa)
                         .addGap(18, 18, 18)
-                        .addComponent(btnxuatexxcel)))
+                        .addComponent(btnxuatexxcel))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtmahocky, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                            .addComponent(datebatdau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel3))
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txttenhocky, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                            .addComponent(dateketthuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -185,7 +208,13 @@ public class HocKyView extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(txttenhocky, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(52, 52, 52)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(datebatdau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(dateketthuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnthem)
                     .addComponent(btnluu)
@@ -278,33 +307,75 @@ public class HocKyView extends javax.swing.JPanel {
         btnxoa.setEnabled(true);
         int selectedRow = jTable1.getSelectedRow();
         txtmahocky.setEnabled(false);
+
         if (selectedRow >= 0) {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            String malop = jTable1.getValueAt(selectedRow, 0).toString();
-            String tenlop = jTable1.getValueAt(selectedRow, 1).toString();
+            String mahk = jTable1.getValueAt(selectedRow, 0).toString();
+            String tenhk = jTable1.getValueAt(selectedRow, 1).toString();
+            String ngayBatDauStr = jTable1.getValueAt(selectedRow, 2).toString();
+            String ngayKetThucStr = jTable1.getValueAt(selectedRow, 3).toString();
 
-            // Hiển thị lên các ô nhập liệu
-            txtmahocky.setText(malop);
-            txttenhocky.setText(tenlop);
+            txtmahocky.setText(mahk);
+            txttenhocky.setText(tenhk);
 
+            // Đổi chuỗi dd/MM/yyyy sang java.util.Date để set cho JDateChooser
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date ngayBD = sdf.parse(ngayBatDauStr);
+                datebatdau.setDate(ngayBD);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                Date ngayKT = sdf.parse(ngayKetThucStr);
+                dateketthuc.setDate(ngayKT);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
-    private void btnluuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnluuActionPerformed
-        String mahk = txtmahocky.getText();
-        String tenhk = txttenhocky.getText();
+    private HocKy validateHocKyInput() {
+        String mahk = txtmahocky.getText().trim();
+        String tenhk = txttenhocky.getText().trim();
+        Date ngayBatDau = datebatdau.getDate();
+        Date ngayKetThuc = dateketthuc.getDate();
+
         if (mahk.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập Mã học kỳ!");
             txtmahocky.requestFocus();
-            return;
+            return null;
         }
 
         if (tenhk.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập Tên học kỳ!");
             txttenhocky.requestFocus();
+            return null;
+        }
+
+        if (ngayBatDau == null || ngayKetThuc == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn đầy đủ thời gian bắt đầu và kết thúc!");
+            return null;
+        }
+
+        if (ngayKetThuc.before(ngayBatDau)) {
+            JOptionPane.showMessageDialog(this, "Ngày kết thúc không được trước ngày bắt đầu!");
+            return null;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String thoigianBatdau = sdf.format(ngayBatDau);
+        String thoigianKetthuc = sdf.format(ngayKetThuc);
+
+        return new HocKy(mahk, tenhk, thoigianBatdau, thoigianKetthuc);
+    }
+
+    private void btnluuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnluuActionPerformed
+        HocKy hk = validateHocKyInput();
+        if (hk == null) {
             return;
         }
-        HocKy hk = new HocKy(mahk, tenhk);
         Gson gson = new Gson();
         String jsonInputString = gson.toJson(hk);
 
@@ -355,19 +426,19 @@ public class HocKyView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnthemActionPerformed
 
     private void btncapnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncapnhatActionPerformed
-        String mahk = txtmahocky.getText();
-        String tenhk = txttenhocky.getText();
+        HocKy hk = validateHocKyInput();  // Kiểm tra hợp lệ và tạo đối tượng HocKy
+        if (hk == null) {
+            return;
+        }
 
-        HocKy hk = new HocKy(mahk, tenhk);
-        Gson gson = new Gson();
-        String jsonInputString = gson.toJson(hk);
         try {
-            URL url = new URL("http://localhost:8080/api/hocky/" + mahk);
+            URL url = new URL("http://localhost:8080/api/hocky/" + URLEncoder.encode(hk.getMahk(), "UTF-8"));
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("PUT");
             con.setRequestProperty("Content-Type", "application/json; utf-8");
             con.setDoOutput(true);
-
+            Gson gson = new Gson();
+            String jsonInputString = gson.toJson(hk);
             try (OutputStream os = con.getOutputStream()) {
                 byte[] input = jsonInputString.getBytes("utf-8");
                 os.write(input, 0, input.length);
@@ -450,11 +521,30 @@ public class HocKyView extends javax.swing.JPanel {
             HocKy[] dshk = gson.fromJson(sb.toString(), HocKy[].class);
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
+
+            SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdfOutput = new SimpleDateFormat("dd/MM/yyyy");
             for (HocKy hk : dshk) {
+                String ngayBatDau = "";
+                String ngayKetThuc = "";
+                try {
+                    Date bd = sdfInput.parse(hk.getThoigianBatdau());
+                    ngayBatDau = sdfOutput.format(bd);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    Date kt = sdfInput.parse(hk.getThoigianKetthuc());
+                    ngayKetThuc = sdfOutput.format(kt);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 model.addRow(new Object[]{
                     hk.getMahk(),
-                    hk.getTenhk()
-                });
+                    hk.getTenhk(),
+                    ngayBatDau,
+                    ngayKetThuc});
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -502,10 +592,32 @@ public class HocKyView extends javax.swing.JPanel {
             HocKy[] dshk = gson.fromJson(response.toString(), HocKy[].class);
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
+
+            SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdfOutput = new SimpleDateFormat("dd/MM/yyyy");
+
             for (HocKy hk : dshk) {
+                String ngayBatDau = "";
+                String ngayKetThuc = "";
+
+                try {
+                    Date bd = sdfInput.parse(hk.getThoigianBatdau());
+                    ngayBatDau = sdfOutput.format(bd);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    Date kt = sdfInput.parse(hk.getThoigianKetthuc());
+                    ngayKetThuc = sdfOutput.format(kt);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 model.addRow(new Object[]{
                     hk.getMahk(),
-                    hk.getTenhk()
+                    hk.getTenhk(),
+                    ngayBatDau,
+                    ngayKetThuc
                 });
             }
         } catch (Exception e) {
@@ -521,11 +633,15 @@ public class HocKyView extends javax.swing.JPanel {
     private javax.swing.JButton btntimkiem;
     private javax.swing.JButton btnxoa;
     private javax.swing.JButton btnxuatexxcel;
+    private com.toedter.calendar.JDateChooser datebatdau;
+    private com.toedter.calendar.JDateChooser dateketthuc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
