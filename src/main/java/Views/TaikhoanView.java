@@ -35,6 +35,9 @@ public class TaikhoanView extends javax.swing.JPanel {
     public TaikhoanView() {
         initComponents();
         loadtb();
+        btnluu.setEnabled(false);
+        btncapnhat.setEnabled(false);
+        btnxoa.setEnabled(false);
     }
 
     /**
@@ -78,7 +81,7 @@ public class TaikhoanView extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel5.setText("Mã sv:");
+        jLabel5.setText("Username:");
 
         jLabel6.setText("Tên sv:");
 
@@ -94,8 +97,7 @@ public class TaikhoanView extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtfindmasv, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -308,23 +310,23 @@ public class TaikhoanView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btntimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimkiemActionPerformed
-        String mamon = txtfindmasv.getText().trim();
-        String tenmon = txtfindtensv.getText().trim();
+        String username = txtfindmasv.getText().trim();
+        String tensv = txtfindtensv.getText().trim();
         try {
             String urlStr = String.format(
-                    "http://localhost:8080/api/mon/search?mamon=%s&tenmon=%s",
-                    URLEncoder.encode(mamon, StandardCharsets.UTF_8),
-                    URLEncoder.encode(tenmon, StandardCharsets.UTF_8)
+                    "http://localhost:8080/api/taikhoan/search?username=%s&tensv=%s",
+                    URLEncoder.encode(username, StandardCharsets.UTF_8),
+                    URLEncoder.encode(tensv, StandardCharsets.UTF_8)
             );
-
+            
             HttpURLConnection conn = (HttpURLConnection) new URL(urlStr).openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
-
+            
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 throw new RuntimeException("Lỗi HTTP: " + conn.getResponseCode());
             }
-
+            
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             String line;
@@ -333,26 +335,25 @@ public class TaikhoanView extends javax.swing.JPanel {
             }
             br.close();
             conn.disconnect();
-
+            
             Gson gson = new Gson();
-            Monhoc[] dsmon = gson.fromJson(sb.toString(), Monhoc[].class);
-
+            TaiKhoan[] dstk = gson.fromJson(sb.toString(), TaiKhoan[].class);
+            
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
-            for (Monhoc mon : dsmon) {
+            for (TaiKhoan tk : dstk) {
                 model.addRow(new Object[]{
-                    mon.getMamon(),
-                    mon.getTenmon(),
-                    mon.getSotinchi(),
-                    mon.getGiaTinchi()
-                });
+                    tk.getUsername(),
+                    tk.getPassword(),
+                    tk.getHoten(),
+                    tk.getRole()});
             }
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Lỗi khi tìm kiếm sinh viên: " + e.getMessage());
         }
     }//GEN-LAST:event_btntimkiemActionPerformed
-
+    
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         btnluu.setEnabled(false);
         btncapnhat.setEnabled(true);
@@ -361,43 +362,43 @@ public class TaikhoanView extends javax.swing.JPanel {
         txtusername.setEnabled(false);
         if (selectedRow >= 0) {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            String malop = jTable1.getValueAt(selectedRow, 0).toString();
-            String tenlop = jTable1.getValueAt(selectedRow, 1).toString();
-            String khoa = jTable1.getValueAt(selectedRow, 2).toString();
-            String giatin = jTable1.getValueAt(selectedRow, 3).toString();
+            String username = jTable1.getValueAt(selectedRow, 0).toString();
+            String pass = jTable1.getValueAt(selectedRow, 1).toString();
+            String name = jTable1.getValueAt(selectedRow, 2).toString();
+            String role = jTable1.getValueAt(selectedRow, 3).toString();
             // Hiển thị lên các ô nhập liệu
-            txtusername.setText(malop);
-            txtname.setText(tenlop);
-            txtpass.setText(khoa);
-            txtrole.setSelectedItem(giatin);
+            txtusername.setText(username);
+            txtname.setText(name);
+            txtpass.setText(pass);
+            txtrole.setSelectedItem(role);
         }
     }//GEN-LAST:event_jTable1MouseClicked
-
+    
     private void txtpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtpassActionPerformed
-
+    
     private void btnluuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnluuActionPerformed
         String user = txtusername.getText();
         String name = txtname.getText();
         String pass = txtpass.getText();
         String role = txtrole.getSelectedItem().toString();
-
+        
         TaiKhoan tk = new TaiKhoan(user, pass, role, name);
         Gson gson = new Gson();
         String jsonInputString = gson.toJson(tk);
-
+        System.out.println("Dữ liệu gửi lên BE: " + jsonInputString);
         try {
             URL url = new URL("http://localhost:8080/api/taikhoan");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json; utf-8");
             con.setDoOutput(true);
-
+            
             try (OutputStream os = con.getOutputStream()) {
                 byte[] input = jsonInputString.getBytes("utf-8");
                 os.write(input, 0, input.length);
-
+                
             }
             int code = con.getResponseCode();
             if (code == HttpURLConnection.HTTP_CREATED || code == HttpURLConnection.HTTP_OK) {
@@ -410,34 +411,34 @@ public class TaikhoanView extends javax.swing.JPanel {
                 while ((responseLine = br.readLine()) != null) {
                     response.append(responseLine.trim());
                 }
-
+                
                 JOptionPane.showMessageDialog(this, "Thêm mới thất bại: " + response.toString());
-
+                
             }
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnluuActionPerformed
-
+    
     private void clear() {
         txtusername.setText("");
         txtname.setText("");
         txtpass.setText("");
         txtrole.setSelectedItem("");
     }
-
+    
     private void loadtb() {
         try {
             URL url = new URL("http://localhost:8080/api/taikhoan");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("Accept", "application/json");
-
+            
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
             StringBuilder response = new StringBuilder();
             String inputLine;
-
+            
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
@@ -459,7 +460,7 @@ public class TaikhoanView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Lỗi khi gọi API" + e.getMessage());
         }
     }
-
+    
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         clear();
         txtusername.setEnabled(true);
@@ -467,13 +468,13 @@ public class TaikhoanView extends javax.swing.JPanel {
         btncapnhat.setEnabled(false);
         btnxoa.setEnabled(false);
     }//GEN-LAST:event_btnthemActionPerformed
-
+    
     private void btncapnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncapnhatActionPerformed
         String user = txtusername.getText();
         String name = txtname.getText();
         String pass = txtpass.getText();
         String role = txtrole.getSelectedItem().toString();
-
+        
         TaiKhoan tk = new TaiKhoan(user, pass, role, name);
         Gson gson = new Gson();
         String jsonInputString = gson.toJson(tk);
@@ -483,12 +484,12 @@ public class TaikhoanView extends javax.swing.JPanel {
             con.setRequestMethod("PUT");
             con.setRequestProperty("Content-Type", "application/json; utf-8");
             con.setDoOutput(true);
-
+            
             try (OutputStream os = con.getOutputStream()) {
                 byte[] input = jsonInputString.getBytes("utf-8");
                 os.write(input, 0, input.length);
             }
-
+            
             int responseCode = con.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
@@ -497,32 +498,32 @@ public class TaikhoanView extends javax.swing.JPanel {
             } else {
                 JOptionPane.showMessageDialog(this, "Cập nhật thất bại. Mã lỗi: " + responseCode);
             }
-
+            
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Lỗi kết nối: " + e.getMessage());
         }
     }//GEN-LAST:event_btncapnhatActionPerformed
-
+    
     private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
         int selectRow = jTable1.getSelectedRow();
-
+        
         if (selectRow < 0) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để xóa.");
             return;
         }
         String user = jTable1.getValueAt(selectRow, 0).toString();
-
+        
         int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa", "Xác nhận xóa", JOptionPane.YES_NO_OPTION
         );
         if (confirm == JOptionPane.YES_OPTION) {
             try {
                 String encodeduser = URLEncoder.encode(user, "UTF-8");
                 URL url = new URL("http://localhost:8080/api/taikhoan/" + encodeduser);
-
+                
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("DELETE");
                 con.setRequestProperty("Content-Type", "application/json; utf-8");
-
+                
                 int responseCode = con.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
                     JOptionPane.showMessageDialog(this, "Xóa thành công");
@@ -530,13 +531,13 @@ public class TaikhoanView extends javax.swing.JPanel {
                 } else {
                     JOptionPane.showMessageDialog(this, "Xóa thất bại ");
                 }
-
+                
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }//GEN-LAST:event_btnxoaActionPerformed
-
+    
     private void btnxuatexxcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxuatexxcelActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Lưu file Excel");
